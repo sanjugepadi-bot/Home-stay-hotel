@@ -67,7 +67,7 @@ export function Hero() {
             </ul>
           </div>
 
-          <div className="order-1 mx-auto w-full max-w-md lg:order-2 lg:max-w-none">
+          <div className="order-1 mx-auto w-full max-w-[27rem] lg:order-2">
             <div className="relative">
               {/* Offset gold frame */}
               <div aria-hidden className="absolute -inset-3 translate-x-3 translate-y-3 rounded-t-[999px] rounded-b-3xl border border-gold/50" />
@@ -78,8 +78,8 @@ export function Hero() {
                   fill
                   priority
                   fetchPriority="high"
-                  sizes="(min-width: 1024px) 46vw, (min-width: 448px) 448px, 92vw"
-                  quality={85}
+                  sizes="(min-width: 448px) 432px, 92vw"
+                  quality={90}
                   className="object-cover"
                 />
                 <div aria-hidden className="absolute inset-x-0 bottom-0 h-1/4 bg-gradient-to-t from-forest/25 to-transparent" />

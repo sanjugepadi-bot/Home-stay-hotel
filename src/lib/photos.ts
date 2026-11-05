@@ -21,8 +21,6 @@ import goldDoor from "../../public/images/homestay/gold-room/gold-room-gold-flut
 import goldTelephone from "../../public/images/homestay/gold-room/gold-room-red-telephone-booth.webp";
 
 // White Room
-import whiteRoundBed from "../../public/images/homestay/white-room/white-room-round-bed-curtained-window.webp";
-import whiteBasin from "../../public/images/homestay/white-room/white-room-brass-basin-round-mirrors.webp";
 
 // Blue Room
 import blueWide from "../../public/images/homestay/blue-room/blue-room-wide-view-brick-arches-bed.webp";
@@ -75,8 +73,6 @@ export const photos = {
   goldDoor,
   goldTelephone,
   whiteRoom,
-  whiteRoundBed,
-  whiteBasin,
   blueRoom1,
   blueRoom2,
   blueWide,

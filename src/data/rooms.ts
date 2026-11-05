@@ -151,6 +151,22 @@ export function roomPath(room: Room) {
   return `/rooms/${roomSlug(room)}`;
 }
 
+/**
+ * Which photograph represents each room on cards. Chosen from the owner's own photos for
+ * resolution (all >= 785 px wide, shown at card size only), sharpness and how well they crop to a portrait card —
+ * the room's page and lightbox still show the full set in its original order.
+ */
+const COVER_KEYS: Record<string, PhotoKey> = {
+  gold: "goldWide",
+  blue: "blueWide",
+  black: "blackBedWindows",
+};
+
+export function roomCover(room: Room): RoomPhoto | undefined {
+  const wanted = COVER_KEYS[room.id];
+  return room.gallery?.find((p) => p.photoKey === wanted) ?? room.gallery?.[0];
+}
+
 export const roomsWithPages = rooms.filter(roomHasPage);
 
 export function getRoomBySlug(slug: string) {

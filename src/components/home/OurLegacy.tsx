@@ -5,7 +5,7 @@ import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Reveal } from "@/components/ui/Reveal";
 import { legacy } from "@/data/legacy";
-import { rooms, roomHasPage, roomPath } from "@/data/rooms";
+import { rooms, roomCover, roomHasPage, roomPath } from "@/data/rooms";
 import { photos } from "@/lib/photos";
 
 const pillars = [
@@ -34,7 +34,7 @@ const pillars = [
 /** Cover photo of a room, taken from that room's own photo set. */
 function cover(roomId: string) {
   const room = rooms.find((r) => r.id === roomId);
-  const photo = room?.gallery?.[0];
+  const photo = room ? roomCover(room) : undefined;
   return room && photo
     ? { name: room.name, src: photos[photo.photoKey], alt: photo.alt, href: roomHasPage(room) ? roomPath(room) : null }
     : null;
@@ -86,16 +86,17 @@ export function OurLegacy() {
 
         {/* Three equal, evenly spaced room portraits */}
         {tiles.length > 0 && (
-          <div className="mt-14 grid gap-6 sm:grid-cols-3 sm:gap-5 lg:mt-16 lg:gap-8">
+          <div className="mx-auto mt-14 grid max-w-md gap-6 sm:max-w-none sm:grid-cols-3 sm:gap-5 lg:mt-16 lg:gap-8">
             {tiles.map((t, i) => {
               const frame = (
                 <>
-                  <div className="relative aspect-[4/3] overflow-hidden rounded-[1.75rem] shadow-2xl shadow-black/30 ring-1 ring-beige-light/15 sm:aspect-[4/5]">
+                  <div className="relative aspect-[4/5] overflow-hidden rounded-[1.75rem] shadow-2xl shadow-black/30 ring-1 ring-beige-light/15">
                     <Image
                       src={t.src}
                       alt={t.alt}
                       fill
                       sizes="(min-width: 1280px) 384px, (min-width: 640px) 31vw, 92vw"
+                      quality={90}
                       placeholder="blur"
                       className="object-cover transition-transform duration-[900ms] ease-out group-hover:scale-[1.05]"
                     />

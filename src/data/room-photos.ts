@@ -97,18 +97,6 @@ export const whiteRoomPhotos: RoomPhoto[] = [
     caption: "The White Room",
     alt: "White Theme Bedroom at Homestay by the Tea Garden, Dibrugarh — all-white room with a canopy bed",
   },
-  {
-    id: "round-bed",
-    photoKey: "whiteRoundBed",
-    caption: "Round white bed by the window",
-    alt: "White Theme Bedroom at Homestay by the Tea Garden, Dibrugarh — round white bed in front of sheer curtains, with decorative lanterns",
-  },
-  {
-    id: "basin-mirrors",
-    photoKey: "whiteBasin",
-    caption: "Brass basin and round mirrors",
-    alt: "Brass wash basin on a white wooden shelf with round mirrors in the White Theme Room bathroom at Homestay by the Tea Garden, Dibrugarh",
-  },
 ];
 
 export const blueRoomPhotos: RoomPhoto[] = [
