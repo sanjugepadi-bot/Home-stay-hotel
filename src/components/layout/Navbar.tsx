@@ -64,7 +64,7 @@ export function Navbar() {
       className={cn(
         "fixed inset-x-0 top-0 z-40 transition-all duration-300",
         transparent
-          ? "border-b border-transparent bg-transparent py-6 text-beige-light"
+          ? "border-b border-transparent bg-transparent py-5 text-foreground"
           : "glass py-3 text-foreground shadow-lg shadow-black/5"
       )}
     >
@@ -84,8 +84,7 @@ export function Navbar() {
               key={l.href}
               href={`/${l.href}`}
               className={cn(
-                "rounded-sm text-sm font-semibold tracking-wide transition-colors hover:text-gold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold",
-                transparent ? "text-beige-light/90" : "text-foreground/85"
+                "relative rounded-sm py-1 text-sm font-semibold tracking-wide text-foreground/85 transition-colors after:absolute after:inset-x-0 after:-bottom-0.5 after:h-px after:origin-left after:scale-x-0 after:bg-gold after:transition-transform after:duration-300 hover:text-gold-deep hover:after:scale-x-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold"
               )}
             >
               {l.label}
