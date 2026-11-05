@@ -10,7 +10,7 @@ if (process.env.NODE_ENV === "production" && !process.env.NEXT_PUBLIC_SITE_URL) 
 }
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  images: { formats: ["image/avif", "image/webp"] },
 };
 
 export default nextConfig;

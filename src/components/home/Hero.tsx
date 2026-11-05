@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import { getImageProps } from "next/image";
 import { motion } from "framer-motion";
 import { ArrowRight, MessageCircle, Award, CalendarClock, Palette } from "lucide-react";
 import { Container } from "@/components/ui/Container";
@@ -9,7 +9,8 @@ import { BookingWidget } from "@/components/booking/BookingWidget";
 import { site, whatsappLink } from "@/data/site";
 import { rooms } from "@/data/rooms";
 import { legacy } from "@/data/legacy";
-import { photos } from "@/lib/photos";
+import heroDesktop from "../../../public/images/homestay/hero/hero-tea-garden-bedroom-desktop-16x9.webp";
+import heroMobile from "../../../public/images/homestay/hero/hero-tea-garden-bedroom-mobile-9x16.webp";
 
 const badges = [
   { icon: CalendarClock, label: `${legacy.yearsLabel} years of hospitality` },
@@ -17,35 +18,30 @@ const badges = [
   { icon: Palette, label: `${rooms.length} themed rooms` },
 ];
 
+const heroAlt = `A sunlit bedroom at ${site.name} in Dibrugarh, with a balcony door opening onto the tea garden`;
+const common = { alt: heroAlt, sizes: "100vw", quality: 85 } as const;
+const { props: desktopProps } = getImageProps({ ...common, src: heroDesktop, priority: true });
+const { props: mobileProps } = getImageProps({ ...common, src: heroMobile, priority: true, fetchPriority: "high" });
+const desktopSrcSet = desktopProps.srcSet;
+
 export function Hero() {
   return (
     <section id="top" className="relative isolate flex min-h-[100svh] items-end overflow-hidden bg-forest pt-28 pb-10 sm:items-center sm:pb-16">
-      {/* Full-bleed property photography stands in for a hero video, with a slow Ken-Burns drift */}
+      {/* Full-bleed, sharp hero photograph (no blur, no zoom animation). A 16:9 crop is served on wide screens and a portrait crop on phones / portrait tablets. */}
       <div className="absolute inset-0 -z-10 overflow-hidden">
-        <motion.div
-          className="absolute -inset-[6%]"
-          animate={{ scale: [1, 1.08, 1] }}
-          transition={{ duration: 26, repeat: Infinity, ease: "easeInOut" }}
-        >
-          <Image
-            src={photos.heroGoldRoom}
-            alt={`The Gold Room at ${site.name} in Dibrugarh, with a gilded bed and painted ceiling`}
-            fill
-            priority
-            fetchPriority="high"
-            sizes="100vw"
-            className="object-cover"
-          />
-        </motion.div>
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_20%_20%,rgba(201,162,75,0.2),transparent_55%)]" />
-        <div className="hero-noise absolute inset-0" />
-        <div className="absolute inset-0 bg-[linear-gradient(to_top,rgba(19,36,25,0.92)_0%,rgba(19,36,25,0.4)_50%,rgba(19,36,25,0.08)_100%)]" />
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(19,36,25,0.55)_0%,rgba(19,36,25,0)_60%)]" />
+        <picture>
+          <source media="(min-width: 1024px)" srcSet={desktopSrcSet} sizes="100vw" />
+          <img {...mobileProps} alt={heroAlt} className="absolute inset-0 h-full w-full object-cover object-[50%_60%] lg:object-[50%_55%]" />
+        </picture>
+        {/* Subtle readability overlay only — the photo stays bright and clear */}
+        <div className="absolute inset-0 bg-forest/25 lg:bg-transparent" />
+        <div className="absolute inset-0 bg-[linear-gradient(to_top,rgba(19,36,25,0.62)_0%,rgba(19,36,25,0.22)_45%,rgba(19,36,25,0.06)_100%)]" />
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(19,36,25,0.5)_0%,rgba(19,36,25,0.18)_40%,rgba(19,36,25,0)_68%)]" />
       </div>
 
       <Container className="relative z-10">
         <div className="hero-rise max-w-3xl">
-          <span className="mb-5 inline-flex max-w-full items-center gap-2 rounded-full border border-gold/40 bg-white/5 px-3.5 py-1.5 text-[10px] font-medium uppercase tracking-[0.15em] text-gold backdrop-blur-sm sm:px-4 sm:text-xs sm:tracking-[0.2em]">
+          <span className="mb-5 inline-flex max-w-full items-center gap-2 rounded-full border border-gold/40 bg-forest/40 px-3.5 py-1.5 text-[10px] font-medium uppercase tracking-[0.15em] text-gold backdrop-blur-sm sm:px-4 sm:text-xs sm:tracking-[0.2em]">
             Homestay in Dibrugarh, Assam
           </span>
           <h1 className="font-display text-[clamp(2.25rem,1.4rem+4.2vw,4.75rem)] leading-[1.08] text-beige-light">
