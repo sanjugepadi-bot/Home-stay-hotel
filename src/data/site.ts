@@ -53,7 +53,7 @@ export const site = {
     lat: 27.4728,
     lng: 94.912,
   },
-  phones: ["+91 9899997370", "+91 8472875266"],
+  phones: ["+91 9899997370", "+91 9531356250"],
   // Confirmed by the owner as the homestay's WhatsApp number.
   whatsapp: "919899997370",
   email: "",
