@@ -7,7 +7,7 @@ import { faqJsonLd } from "@/lib/structured-data";
 
 export function FAQ() {
   return (
-    <section id="faq" className="py-20 sm:py-28">
+    <section id="faq" className="scroll-mt-20 py-20 sm:py-28">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd()) }}

@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useState } from "react";
 
-const KEY = "serenity-recently-viewed";
+const KEY = "tea-garden-recently-viewed";
 const MAX = 4;
 
 function read(): string[] {

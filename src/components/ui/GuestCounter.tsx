@@ -21,7 +21,7 @@ export function GuestCounter({
         <button
           type="button"
           className={cn(
-            "flex w-full items-center gap-2 rounded-lg border border-border bg-background/80 px-3 py-2.5 text-left text-sm text-foreground",
+            "flex min-h-11 w-full items-center gap-2 rounded-lg border border-border bg-background/80 px-3 py-2.5 text-left text-base text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold sm:text-sm",
             className
           )}
         >
@@ -32,7 +32,7 @@ export function GuestCounter({
       <PopoverPrimitive.Portal>
         <PopoverPrimitive.Content
           sideOffset={10}
-          className="z-50 w-56 rounded-xl border border-border bg-card p-4 shadow-xl"
+          className="z-50 w-64 rounded-xl border border-border bg-card p-4 shadow-xl"
         >
           <div className="flex items-center justify-between">
             <span className="text-sm font-medium text-foreground">Guests</span>
@@ -40,7 +40,7 @@ export function GuestCounter({
               <button
                 type="button"
                 onClick={() => onChange(Math.max(1, value - 1))}
-                className="flex h-7 w-7 items-center justify-center rounded-full border border-border text-foreground hover:bg-foreground/10"
+                className="flex h-11 w-11 items-center justify-center rounded-full border border-border text-foreground hover:bg-foreground/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold"
                 aria-label="Decrease guests"
               >
                 <Minus className="h-3.5 w-3.5" />
@@ -49,7 +49,7 @@ export function GuestCounter({
               <button
                 type="button"
                 onClick={() => onChange(Math.min(max, value + 1))}
-                className="flex h-7 w-7 items-center justify-center rounded-full border border-border text-foreground hover:bg-foreground/10"
+                className="flex h-11 w-11 items-center justify-center rounded-full border border-border text-foreground hover:bg-foreground/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold"
                 aria-label="Increase guests"
               >
                 <Plus className="h-3.5 w-3.5" />

@@ -2,30 +2,16 @@
 
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
 import { CheckCircle2, Lock, Send } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { rooms } from "@/data/rooms";
 import { whatsappLink } from "@/data/site";
 import { useBooking } from "./BookingContext";
-import { cn } from "@/lib/utils";
-
-const schema = z.object({
-  name: z.string().min(2, "Please enter your full name"),
-  email: z.string().email("Enter a valid email"),
-  phone: z.string().min(8, "Enter a valid phone number"),
-  roomId: z.string(),
-  checkIn: z.string().min(1, "Select a check-in date"),
-  checkOut: z.string().min(1, "Select a check-out date"),
-  guests: z.number().min(1).max(10),
-  message: z.string().optional(),
-});
-
-type FormValues = z.infer<typeof schema>;
+import { cn, formatINR } from "@/lib/utils";
+import { bookingResolver, type BookingFormValues as FormValues } from "@/lib/booking-validation";
 
 const inputClass =
-  "w-full rounded-lg border border-border bg-background/80 px-3.5 py-3 text-sm text-foreground placeholder:text-muted-foreground transition-colors focus:border-gold focus:outline-none focus:ring-2 focus:ring-gold/20";
+  "w-full min-h-11 rounded-lg border border-border bg-background/80 px-3.5 py-3 text-base text-foreground placeholder:text-muted-foreground transition-colors focus:border-gold focus:outline-none focus:ring-2 focus:ring-gold/20 sm:text-sm";
 
 export function BookingForm() {
   const { roomId, checkIn, checkOut, guests } = useBooking();
@@ -36,7 +22,7 @@ export function BookingForm() {
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm<FormValues>({
-    resolver: zodResolver(schema),
+    resolver: bookingResolver,
     values: { name: "", email: "", phone: "", roomId, checkIn, checkOut, guests, message: "" },
   });
 
@@ -65,7 +51,7 @@ export function BookingForm() {
         <CheckCircle2 className="h-12 w-12 text-gold-deep" />
         <h3 className="mt-4 font-display text-2xl text-foreground">Request sent!</h3>
         <p className="mt-2 max-w-sm text-sm text-muted-foreground">
-          We&apos;ve opened WhatsApp with your booking details. Our team typically replies within 30 minutes.
+          We&apos;ve opened WhatsApp with your booking details. The host will reply there to confirm availability.
         </p>
         <Button variant="outline" className="mt-6" onClick={() => setSubmitted(false)}>
           Send another request
@@ -81,24 +67,44 @@ export function BookingForm() {
     >
       <div className="grid gap-4 sm:grid-cols-2">
         <div>
-          <input className={inputClass} placeholder="Full name" {...register("name")} />
+          <input
+            type="text"
+            autoComplete="name"
+            className={inputClass}
+            placeholder="Full name"
+            {...register("name")}
+          />
           {errors.name && <p className="mt-1 text-xs text-red-500">{errors.name.message}</p>}
         </div>
         <div>
-          <input className={inputClass} placeholder="Email address" {...register("email")} />
+          <input
+            type="email"
+            inputMode="email"
+            autoComplete="email"
+            className={inputClass}
+            placeholder="Email address"
+            {...register("email")}
+          />
           {errors.email && <p className="mt-1 text-xs text-red-500">{errors.email.message}</p>}
         </div>
       </div>
 
       <div className="grid gap-4 sm:grid-cols-2">
         <div>
-          <input className={inputClass} placeholder="Phone number" {...register("phone")} />
+          <input
+            type="tel"
+            inputMode="tel"
+            autoComplete="tel"
+            className={inputClass}
+            placeholder="Phone number"
+            {...register("phone")}
+          />
           {errors.phone && <p className="mt-1 text-xs text-red-500">{errors.phone.message}</p>}
         </div>
         <select className={cn(inputClass, "appearance-none")} {...register("roomId")}>
           {rooms.map((r) => (
             <option key={r.id} value={r.id}>
-              {r.name}
+              {r.name} — {formatINR(r.price)}
             </option>
           ))}
         </select>
@@ -108,14 +114,24 @@ export function BookingForm() {
         <div>
           <label className="mb-1.5 block text-xs font-semibold text-muted-foreground">Check-in</label>
           <input type="date" className={inputClass} {...register("checkIn")} />
+          {errors.checkIn && <p className="mt-1 text-xs text-red-500">{errors.checkIn.message}</p>}
         </div>
         <div>
           <label className="mb-1.5 block text-xs font-semibold text-muted-foreground">Check-out</label>
           <input type="date" className={inputClass} {...register("checkOut")} />
+          {errors.checkOut && <p className="mt-1 text-xs text-red-500">{errors.checkOut.message}</p>}
         </div>
         <div>
           <label className="mb-1.5 block text-xs font-semibold text-muted-foreground">Guests</label>
-          <input type="number" min={1} max={10} className={inputClass} {...register("guests", { valueAsNumber: true })} />
+          <input
+            type="number"
+            inputMode="numeric"
+            min={1}
+            max={10}
+            className={inputClass}
+            {...register("guests", { valueAsNumber: true })}
+          />
+          {errors.guests && <p className="mt-1 text-xs text-red-500">{errors.guests.message}</p>}
         </div>
       </div>
 
@@ -126,12 +142,12 @@ export function BookingForm() {
         {...register("message")}
       />
 
-      <Button type="submit" variant="gold" size="lg" disabled={isSubmitting} className="w-full">
+      <Button type="submit" variant="gold" size="lg" disabled={isSubmitting} className="h-auto min-h-14 w-full whitespace-normal px-5 py-3 text-center">
         <Send className="h-4 w-4" /> Send Booking Request via WhatsApp
       </Button>
 
       <p className="flex items-center justify-center gap-1.5 text-xs text-muted-foreground">
-        <Lock className="h-3 w-3" /> Secure payments powered by Razorpay/Stripe — coming soon. No payment required to request a booking.
+        <Lock className="h-3 w-3" /> No payment is taken on this website — availability and rates are confirmed with the host.
       </p>
     </form>
   );

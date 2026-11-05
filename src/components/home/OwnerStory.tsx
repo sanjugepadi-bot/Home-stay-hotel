@@ -1,7 +1,11 @@
+import Link from "next/link";
+import { MessageCircle } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { Reveal } from "@/components/ui/Reveal";
 import { SmartImage } from "@/components/ui/SmartImage";
-import { site } from "@/data/site";
+import { buttonVariants } from "@/components/ui/Button";
+import { site, whatsappLink } from "@/data/site";
+import { rooms } from "@/data/rooms";
 import { photos } from "@/lib/photos";
 
 export function OwnerStory() {
@@ -12,41 +16,47 @@ export function OwnerStory() {
           <SmartImage
             icon="Home"
             seed={2}
-            aspect="aspect-[4/5]"
-            className="w-full max-w-md"
-            label="Our Garden & Grounds"
-            src={photos.exteriorGarden}
-            alt="The garden and grounds at Serenity Stays"
-            sizes="(min-width: 1024px) 40vw, 90vw"
+            aspect="aspect-[4/3]"
+            className="w-full"
+            label="The Blue Room"
+            src={photos.blueRoom1}
+            alt={`The Blue Room at ${site.name}, with blue walls, a large wall clock and a white iron table`}
+            sizes="(min-width: 1024px) 50vw, 100vw"
           />
         </Reveal>
         <Reveal delay={0.1}>
           <span className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.2em] text-gold-deep">
             <span className="h-px w-6 bg-gold-deep/60" aria-hidden />
-            Our Story
+            About the Homestay
           </span>
           <h2 className="mt-4 text-3xl leading-[1.12] tracking-tight text-foreground sm:text-4xl">
-            A home, shared with love
+            Come and enjoy traditional Assamese hospitality
           </h2>
           <p className="mt-5 leading-relaxed text-muted-foreground">
-            {site.name} began as a family home before it became a stay — built by hands that still tend the garden
-            you&apos;ll walk through today. What started as a way to share our love for these hills with travelers
-            has grown into a small community of guests who keep coming back.
+            {site.name} is at {site.location.streetAddress}, {site.location.locality}. Its {rooms.length} rooms
+            are each styled around a colour and a character — the Gold Room&apos;s painted ceiling, the Black
+            Room&apos;s retro black-and-white decor, the all-white White Room and the Blue Room with its Bali
+            craftworks, among others.
           </p>
           <p className="mt-4 leading-relaxed text-muted-foreground">
-            We cook the same recipes passed down through generations, source produce from neighboring farms, and
-            treat every guest the way we&apos;d want to be treated on our own travels — with warmth, honesty, and
-            genuine care. That&apos;s the promise behind every stay here.
+            Explore the{" "}
+            <Link href="/rooms" className="font-semibold text-gold-deep underline-offset-4 hover:underline">
+              rooms and rates
+            </Link>
+            , read{" "}
+            <Link href="/about" className="font-semibold text-gold-deep underline-offset-4 hover:underline">
+              our story and journey
+            </Link>
+            , or message us on WhatsApp to ask about a room, check availability or plan your stay.
           </p>
-          <div className="mt-7 flex items-center gap-4">
-            <span className="flex h-12 w-12 items-center justify-center rounded-full bg-forest text-lg text-beige-light">
-              S
-            </span>
-            <div>
-              <p className="text-sm font-semibold text-foreground">The Hosting Family</p>
-              <p className="text-xs text-muted-foreground">Hosting since {new Date().getFullYear() - site.yearsHosting}</p>
-            </div>
-          </div>
+          <a
+            href={whatsappLink(`Hi ${site.name}! I'd like to know more about the rooms.`)}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={`${buttonVariants({ variant: "whatsapp", size: "md" })} mt-7`}
+          >
+            <MessageCircle className="h-4 w-4" /> Ask on WhatsApp
+          </a>
         </Reveal>
       </Container>
     </section>

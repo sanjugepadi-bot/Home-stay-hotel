@@ -2,11 +2,11 @@
 
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { Gift, X } from "lucide-react";
+import { MessageCircle, X } from "lucide-react";
 import { Button } from "@/components/ui/Button";
-import { whatsappLink } from "@/data/site";
+import { site, whatsappLink } from "@/data/site";
 
-const STORAGE_KEY = "serenity-lead-popup-dismissed";
+const STORAGE_KEY = "tea-garden-lead-popup-dismissed";
 
 export function LeadCapturePopup() {
   const [open, setOpen] = useState(false);
@@ -37,6 +37,19 @@ export function LeadCapturePopup() {
     sessionStorage.setItem(STORAGE_KEY, "1");
   }
 
+  // Close with the Escape key while the popup is open.
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setOpen(false);
+        sessionStorage.setItem(STORAGE_KEY, "1");
+      }
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [open]);
+
   return (
     <AnimatePresence>
       {open && (
@@ -44,6 +57,9 @@ export function LeadCapturePopup() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
+          role="dialog"
+          aria-modal="true"
+          aria-label="Plan your stay"
           className="fixed inset-0 z-[60] flex items-center justify-center bg-black/60 p-4"
           onClick={dismiss}
         >
@@ -58,26 +74,26 @@ export function LeadCapturePopup() {
             <button
               onClick={dismiss}
               aria-label="Close"
-              className="absolute right-4 top-4 rounded-full p-1.5 text-muted-foreground hover:bg-foreground/10"
+              className="absolute right-3 top-3 flex h-11 w-11 items-center justify-center rounded-full text-muted-foreground hover:bg-foreground/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold"
             >
               <X className="h-4 w-4" />
             </button>
             <span className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-gold/15 text-gold-deep">
-              <Gift className="h-7 w-7" />
+              <MessageCircle className="h-7 w-7" />
             </span>
-            <h3 className="mt-4 text-2xl text-foreground">Wait — before you go!</h3>
+            <h3 className="mt-4 text-2xl text-foreground">Planning a stay?</h3>
             <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-              Message us on WhatsApp now and get <span className="font-bold text-gold-deep">10% off</span> your first direct booking.
+              Message us on WhatsApp to ask about rooms, availability and rates.
             </p>
             <a
-              href={whatsappLink("Hi! I'd like to claim the 10% off my first booking.")}
+              href={whatsappLink(`Hi ${site.name}! I'd like to ask about a stay.`)}
               target="_blank"
               rel="noopener noreferrer"
               onClick={dismiss}
               className="mt-6 inline-block w-full"
             >
               <Button variant="whatsapp" size="lg" className="w-full">
-                Claim on WhatsApp
+                Chat on WhatsApp
               </Button>
             </a>
           </motion.div>

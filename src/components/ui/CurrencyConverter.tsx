@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Coins } from "lucide-react";
+import { lowestRoomPrice } from "@/data/rooms";
 
 // Static illustrative rates (INR base). Swap for a live rates API in production.
 const RATES: Record<string, number> = {
@@ -13,7 +14,7 @@ const RATES: Record<string, number> = {
 };
 
 export function CurrencyConverter() {
-  const [amount, setAmount] = useState(1300);
+  const [amount, setAmount] = useState(lowestRoomPrice);
   const [currency, setCurrency] = useState("USD");
 
   const converted = (amount * RATES[currency]).toFixed(2);
@@ -29,13 +30,13 @@ export function CurrencyConverter() {
           type="number"
           value={amount}
           onChange={(e) => setAmount(Number(e.target.value))}
-          className="w-24 rounded-lg border border-border bg-background/80 px-2 py-1.5 text-sm text-foreground focus:border-gold focus:outline-none"
+          className="min-h-11 w-24 rounded-lg border border-border bg-background/80 px-2 py-1.5 text-base text-foreground focus:border-gold focus:outline-none sm:text-sm"
         />
         <span className="text-sm font-medium text-muted-foreground">=</span>
         <select
           value={currency}
           onChange={(e) => setCurrency(e.target.value)}
-          className="rounded-lg border border-border bg-background/80 px-2 py-1.5 text-sm text-foreground focus:border-gold focus:outline-none"
+          className="min-h-11 rounded-lg border border-border bg-background/80 px-2 py-1.5 text-base text-foreground focus:border-gold focus:outline-none sm:text-sm"
         >
           {Object.keys(RATES).map((c) => (
             <option key={c} value={c}>{c}</option>

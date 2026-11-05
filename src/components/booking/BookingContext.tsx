@@ -17,7 +17,7 @@ type BookingState = {
 const BookingCtx = createContext<BookingState | null>(null);
 
 export function BookingProvider({ children }: { children: ReactNode }) {
-  const [roomId, setRoomId] = useState("deluxe");
+  const [roomId, setRoomId] = useState("gold");
   const [checkIn, setCheckIn] = useState("");
   const [checkOut, setCheckOut] = useState("");
   const [guests, setGuests] = useState(2);

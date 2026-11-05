@@ -2,22 +2,24 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { MessageCircle, Star, Users, ShieldCheck } from "lucide-react";
+import { ArrowRight, MessageCircle, Award, CalendarClock, Palette } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { BookingWidget } from "@/components/booking/BookingWidget";
 import { site, whatsappLink } from "@/data/site";
+import { rooms } from "@/data/rooms";
+import { legacy } from "@/data/legacy";
 import { photos } from "@/lib/photos";
 
 const badges = [
-  { icon: Star, label: `${site.rating} Guest Rating` },
-  { icon: Users, label: `${site.reviewCount}+ Happy Guests` },
-  { icon: ShieldCheck, label: "Best Price Guarantee" },
+  { icon: CalendarClock, label: `${legacy.yearsLabel} years of hospitality` },
+  { icon: Award, label: "Award-winning homestay" },
+  { icon: Palette, label: `${rooms.length} themed rooms` },
 ];
 
 export function Hero() {
   return (
-    <section id="top" className="relative flex min-h-[100svh] items-end overflow-hidden bg-forest pt-28 pb-10 sm:items-center sm:pb-16">
+    <section id="top" className="relative isolate flex min-h-[100svh] items-end overflow-hidden bg-forest pt-28 pb-10 sm:items-center sm:pb-16">
       {/* Full-bleed property photography stands in for a hero video, with a slow Ken-Burns drift */}
       <div className="absolute inset-0 -z-10 overflow-hidden">
         <motion.div
@@ -26,10 +28,11 @@ export function Hero() {
           transition={{ duration: 26, repeat: Infinity, ease: "easeInOut" }}
         >
           <Image
-            src={photos.heroBedroom}
-            alt="Luxury bedroom with mountain views at Serenity Stays"
+            src={photos.heroGoldRoom}
+            alt={`The Gold Room at ${site.name} in Dibrugarh, with a gilded bed and painted ceiling`}
             fill
             priority
+            fetchPriority="high"
             sizes="100vw"
             className="object-cover"
           />
@@ -41,25 +44,22 @@ export function Hero() {
       </div>
 
       <Container className="relative z-10">
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-          className="max-w-3xl"
-        >
-          <span className="mb-5 inline-flex items-center gap-2 rounded-full border border-gold/40 bg-white/5 px-4 py-1.5 text-xs font-medium uppercase tracking-[0.2em] text-gold backdrop-blur-sm">
-            {site.location.label}
+        <div className="hero-rise max-w-3xl">
+          <span className="mb-5 inline-flex max-w-full items-center gap-2 rounded-full border border-gold/40 bg-white/5 px-3.5 py-1.5 text-[10px] font-medium uppercase tracking-[0.15em] text-gold backdrop-blur-sm sm:px-4 sm:text-xs sm:tracking-[0.2em]">
+            Homestay in Dibrugarh, Assam
           </span>
-          <h1 className="font-display text-4xl leading-[1.08] text-beige-light sm:text-6xl lg:text-7xl">
+          <h1 className="font-display text-[clamp(2.25rem,1.4rem+4.2vw,4.75rem)] leading-[1.08] text-beige-light">
             {site.tagline}
           </h1>
-          <p className="mt-5 max-w-xl text-base text-beige-light/80 sm:text-lg">
+          <p className="mt-5 max-w-xl text-[clamp(1rem,0.9rem+0.6vw,1.25rem)] leading-relaxed text-beige-light/80">
             {site.subheadline}
           </p>
 
           <div className="mt-8 flex flex-wrap gap-3">
-            <a href="#book">
-              <Button variant="gold" size="lg">Book Now</Button>
+            <a href="#rooms">
+              <Button variant="gold" size="lg">
+                Explore Our Rooms <ArrowRight className="h-4.5 w-4.5" />
+              </Button>
             </a>
             <a
               href={whatsappLink(`Hi ${site.name}! I'd like to enquire about a stay.`)}
@@ -67,7 +67,7 @@ export function Hero() {
               rel="noopener noreferrer"
             >
               <Button variant="whatsapp" size="lg">
-                <MessageCircle className="h-4.5 w-4.5" /> WhatsApp Inquiry
+                <MessageCircle className="h-4.5 w-4.5" /> WhatsApp Enquiry
               </Button>
             </a>
           </div>
@@ -79,7 +79,7 @@ export function Hero() {
               </div>
             ))}
           </div>
-        </motion.div>
+        </div>
 
         <motion.div
           initial={{ opacity: 0, y: 30 }}

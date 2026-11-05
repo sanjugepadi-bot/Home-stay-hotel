@@ -11,6 +11,7 @@ import { StickyBookingBar } from "@/components/layout/StickyBookingBar";
 import { LeadCapturePopup } from "@/components/layout/LeadCapturePopup";
 import { site } from "@/data/site";
 import { lodgingBusinessJsonLd } from "@/lib/structured-data";
+import { homeTitle, ogImage } from "@/lib/seo";
 
 const playfair = Playfair_Display({
   variable: "--font-playfair",
@@ -24,29 +25,43 @@ const manrope = Manrope({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://serenitystays.example"),
+  metadataBase: new URL(site.url),
   title: {
-    default: `${site.name} — ${site.tagline}`,
+    default: homeTitle,
     template: `%s | ${site.name}`,
   },
-  description: site.description,
-  keywords: ["homestay", "boutique stay", "hill station homestay", "India homestay", site.location.label],
+  description: site.metaDescription,
+  applicationName: site.name,
+  keywords: [...site.keywords, site.location.label],
+  // Indexing is only switched on once the production domain is configured
+  // (NEXT_PUBLIC_SITE_URL) — see src/data/site.ts.
+  robots: site.indexable
+    ? {
+        index: true,
+        follow: true,
+        googleBot: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1 },
+      }
+    : { index: false, follow: false },
+  // Fallback social tags (e.g. for the 404 page); each real page sets its own.
   openGraph: {
-    title: `${site.name} — ${site.tagline}`,
-    description: site.description,
+    title: homeTitle,
+    description: site.metaDescription,
+    siteName: site.name,
     type: "website",
     locale: "en_IN",
+    images: [ogImage],
   },
   twitter: {
     card: "summary_large_image",
-    title: `${site.name} — ${site.tagline}`,
-    description: site.description,
+    title: homeTitle,
+    description: site.metaDescription,
+    images: [ogImage],
   },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" suppressHydrationWarning className={`${playfair.variable} ${manrope.variable} h-full antialiased`}>
+    <html lang="en-IN" suppressHydrationWarning className={`${playfair.variable} ${manrope.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col">
         <script
           type="application/ld+json"

@@ -1,108 +1,107 @@
 "use client";
 
 import { useState } from "react";
-import { ChevronLeft, ChevronRight, PlayCircle } from "lucide-react";
+import Link from "next/link";
+import { buttonVariants } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Reveal } from "@/components/ui/Reveal";
 import { SmartImage } from "@/components/ui/SmartImage";
-import { Dialog, DialogContent, DialogTitle } from "@/components/ui/Dialog";
+import { PhotoLightbox } from "@/components/ui/PhotoLightbox";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/Tabs";
-import { gallery } from "@/data/gallery";
+import { gallery, roomTabs } from "@/data/gallery";
 import { photos } from "@/lib/photos";
 
-const tags = ["All", "Property", "Rooms", "Food", "Nature", "Experiences"] as const;
+// Tab ids: "all", "rooms", "bathroom", "kitchen", or a room id (e.g. "black").
+const tabs = [
+  { id: "all", label: "All" },
+  { id: "rooms", label: "Rooms" },
+  ...roomTabs,
+  { id: "bathroom", label: "Bathroom" },
+  { id: "kitchen", label: "Kitchen" },
+];
+
+function filterItems(filter: string) {
+  switch (filter) {
+    case "all":
+      return gallery.filter((g) => !g.extra);
+    case "rooms":
+      return gallery.filter((g) => g.tag === "Rooms" && !g.extra);
+    case "bathroom":
+      return gallery.filter((g) => g.tag === "Bathroom");
+    case "kitchen":
+      return gallery.filter((g) => g.tag === "Kitchen");
+    default:
+      return gallery.filter((g) => g.room === filter);
+  }
+}
 
 export function Gallery() {
-  const [filter, setFilter] = useState<(typeof tags)[number]>("All");
+  const [filter, setFilter] = useState("all");
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
-  const items = filter === "All" ? gallery : gallery.filter((g) => g.tag === filter);
-  const active = activeIndex !== null ? items[activeIndex] : null;
+  const items = filterItems(filter);
 
-  function go(delta: number) {
-    if (activeIndex === null) return;
-    setActiveIndex((activeIndex + delta + items.length) % items.length);
-  }
+  if (gallery.length === 0) return null;
 
   return (
-    <section id="gallery" className="py-20 sm:py-28">
+    <section id="gallery" className="scroll-mt-20 py-20 sm:py-28">
       <Container>
         <SectionHeading
           eyebrow="Gallery"
-          title="A glimpse of Serenity Stays"
-          description="Browse photos and videos from around the property."
+          title="Take a look inside"
+          description="Photographs of the rooms, bathroom and kitchen at the homestay."
         />
 
-        <Tabs value={filter} onValueChange={(v) => setFilter(v as typeof filter)} className="mt-10 flex justify-center">
-          <TabsList>
-            {tags.map((t) => (
-              <TabsTrigger key={t} value={t}>
-                {t}
+        <Tabs value={filter} onValueChange={setFilter} className="mt-10 flex justify-center">
+          <TabsList className="max-w-full flex-wrap justify-center rounded-3xl sm:rounded-full">
+            {tabs.map((t) => (
+              <TabsTrigger key={t.id} value={t.id}>
+                {t.label}
               </TabsTrigger>
             ))}
           </TabsList>
         </Tabs>
 
-        <div className="mt-10 columns-2 gap-4 sm:columns-3 lg:columns-4 [&>*]:mb-4">
+        <div className="mt-10 grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4 xl:grid-cols-5">
           {items.map((item, i) => (
-            <Reveal key={item.id} delay={(i % 8) * 0.04} className="break-inside-avoid">
+            <Reveal key={item.id} delay={(i % 8) * 0.04}>
               <button
+                type="button"
                 onClick={() => setActiveIndex(i)}
-                className="group relative block w-full overflow-hidden rounded-2xl shadow-sm transition-shadow duration-300 hover:shadow-xl"
+                aria-label={`View photo: ${item.caption}`}
+                className="group relative block w-full overflow-hidden rounded-2xl shadow-sm transition-shadow duration-300 hover:shadow-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 focus-visible:ring-offset-background"
               >
                 <SmartImage
-                  icon={item.icon}
+                  icon="Home"
                   seed={i}
-                  aspect={i % 5 === 0 ? "aspect-[3/4]" : "aspect-square"}
+                  aspect="aspect-[4/3]"
                   className="transition-transform duration-500 group-hover:scale-105"
                   src={photos[item.photoKey]}
-                  alt={item.caption}
-                  sizes="(min-width: 1024px) 25vw, (min-width: 640px) 33vw, 50vw"
+                  alt={item.alt}
+                  sizes="(min-width: 1280px) 20vw, (min-width: 1024px) 25vw, 50vw"
                 />
-                {item.type === "video" && (
-                  <span className="absolute inset-0 flex items-center justify-center bg-black/20">
-                    <PlayCircle className="h-10 w-10 text-white drop-shadow-lg" />
-                  </span>
-                )}
+                <span className="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent px-3 pb-2.5 pt-8 text-left text-xs font-medium text-white opacity-100 sm:opacity-0 sm:transition-opacity sm:duration-300 sm:group-hover:opacity-100 sm:group-focus-visible:opacity-100">
+                  {item.caption}
+                </span>
               </button>
             </Reveal>
           ))}
         </div>
+
+        <div className="mt-10 text-center">
+          <Link href="/gallery" className={buttonVariants({ variant: "outline", size: "md" })}>
+            View the full photo gallery
+          </Link>
+        </div>
       </Container>
 
-      <Dialog open={activeIndex !== null} onOpenChange={(o) => !o && setActiveIndex(null)}>
-        <DialogContent className="bg-transparent border-none p-0 shadow-none">
-          <DialogTitle className="sr-only">{active?.caption ?? "Gallery image"}</DialogTitle>
-          {active && (
-            <div className="relative">
-              <SmartImage
-                icon={active.icon}
-                seed={activeIndex ?? 0}
-                aspect="aspect-video"
-                label={active.caption}
-                src={photos[active.photoKey]}
-                alt={active.caption}
-                sizes="90vw"
-              />
-              <button
-                onClick={() => go(-1)}
-                className="absolute left-3 top-1/2 -translate-y-1/2 rounded-full bg-black/40 p-2 text-white hover:bg-black/60"
-                aria-label="Previous"
-              >
-                <ChevronLeft className="h-5 w-5" />
-              </button>
-              <button
-                onClick={() => go(1)}
-                className="absolute right-3 top-1/2 -translate-y-1/2 rounded-full bg-black/40 p-2 text-white hover:bg-black/60"
-                aria-label="Next"
-              >
-                <ChevronRight className="h-5 w-5" />
-              </button>
-            </div>
-          )}
-        </DialogContent>
-      </Dialog>
+      <PhotoLightbox
+        title="Gallery photo"
+        photos={items.map((g) => ({ id: g.id, src: photos[g.photoKey], caption: g.caption, alt: g.alt }))}
+        index={activeIndex}
+        onIndexChange={setActiveIndex}
+      />
     </section>
   );
 }

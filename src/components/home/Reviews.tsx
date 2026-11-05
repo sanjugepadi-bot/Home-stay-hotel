@@ -4,16 +4,16 @@ import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Reveal } from "@/components/ui/Reveal";
 import { StarRating } from "@/components/ui/StarRating";
 import { reviews } from "@/data/reviews";
-import { site } from "@/data/site";
 
 export function Reviews() {
+  if (reviews.length === 0) return null;
+
   return (
-    <section id="reviews" className="py-20 sm:py-28">
+    <section id="reviews" className="scroll-mt-20 py-20 sm:py-28">
       <Container>
         <SectionHeading
           eyebrow="Guest Reviews"
-          title="Loved by travelers, worldwide"
-          description={`Rated ${site.rating}/5 from ${site.reviewCount}+ verified guest reviews.`}
+          title="What our guests say"
         />
 
         <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">

@@ -1,42 +1,35 @@
 import { NextRequest, NextResponse } from "next/server";
 import Anthropic from "@anthropic-ai/sdk";
 import { site } from "@/data/site";
-import { attractions } from "@/data/attractions";
-import { experiences } from "@/data/experiences";
 import { rooms } from "@/data/rooms";
+import { formatINR } from "@/lib/utils";
 
 export const runtime = "nodejs";
 
 type ChatMessage = { role: "user" | "assistant"; content: string };
 
 function systemPrompt() {
-  const attractionsList = attractions
-    .map((a) => `- ${a.name} (${a.category}): ${a.description}`)
-    .join("\n");
-  const experiencesList = experiences
-    .map((e) => `- ${e.title} (${e.duration}): ${e.description}`)
-    .join("\n");
   const roomsList = rooms
-    .map((r) => `- ${r.name}: from ₹${r.priceFrom}/night, sleeps ${r.occupancy}`)
+    .map(
+      (r) =>
+        `- ${r.name}: ${formatINR(r.price)}${r.includes ? ` (${r.includes})` : ""}. ${r.description}`
+    )
     .join("\n");
 
-  return `You are the friendly AI Travel Assistant for "${site.name}", a homestay at ${site.location.label}. Help guests with nearby attractions, restaurants, local experiences, trip planning, and general travel/weather advice for the area. Be warm, concise (2-4 short paragraphs or a short list), and specific to the data below. If asked about something unrelated to travel or the stay, gently redirect to how you can help with their trip.
+  return `You are the friendly assistant for "${site.name}", a homestay at ${site.location.address}. Help visitors understand the rooms and plan a trip to Dibrugarh, Assam. Be warm and concise (2-4 short paragraphs or a short list).
 
-Rooms available:
+Verified facts about the homestay (the ONLY facts you may state about it):
 ${roomsList}
+Contact: ${site.phones.join(" / ")}.
 
-Experiences offered on-site:
-${experiencesList}
-
-Nearby attractions:
-${attractionsList}
-
-Never invent prices, phone numbers, or booking confirmations — for booking, direct guests to the Book Now / WhatsApp button on the site.`;
+Rules:
+- Do not state or guess any other detail about the homestay (amenities, check-in times, policies, distances, nearby places, availability, discounts, reviews). If asked, say you don't have that information and suggest messaging the host on WhatsApp or calling ${site.phones[0]}.
+- General travel tips about Dibrugarh and Assam are fine, but make clear they are general information and not specific to the homestay, and don't present uncertain details as fact.
+- Never confirm bookings or availability — direct guests to the booking form or WhatsApp.`;
 }
 
 function fallbackReply(): string {
-  const picks = attractions.slice(0, 3).map((a) => a.name).join(", ");
-  return `Our AI assistant is temporarily offline, but here are a few quick picks: ${picks}. For anything else, tap the WhatsApp button and our team will help right away!`;
+  return `The assistant is temporarily offline. For rooms, rates and availability, please message us on WhatsApp or call ${site.phones[0]}.`;
 }
 
 export async function POST(req: NextRequest) {

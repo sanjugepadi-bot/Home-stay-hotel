@@ -1,20 +1,49 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { Mail, MapPin, Phone } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { BookingForm } from "@/components/booking/BookingForm";
-import { site } from "@/data/site";
+import { site, phoneHref } from "@/data/site";
+import { buildMetadata } from "@/lib/seo";
+import { contactPageJsonLd } from "@/lib/structured-data";
 
-export const metadata: Metadata = {
-  title: "Contact & Book",
-  description: `Get in touch with ${site.name} or send a booking request directly.`,
-};
+const contactTitle = `Contact & Book | ${site.name}, Dibrugarh`;
+
+export const metadata: Metadata = buildMetadata({
+  title: { absolute: contactTitle },
+  socialTitle: contactTitle,
+  description: `Call, WhatsApp or send a booking request to ${site.name} in Seujpur, Dibrugarh. Ask about room rates and availability.`,
+  path: "/contact",
+});
 
 export default function ContactPage() {
   return (
     <div className="pb-24 pt-28 sm:pt-32">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(contactPageJsonLd()) }}
+      />
       <Container className="max-w-5xl">
-        <SectionHeading eyebrow="Contact" title="We'd love to hear from you" align="left" />
+        <nav aria-label="Breadcrumb" className="mb-6 text-sm text-muted-foreground">
+          <ol className="flex flex-wrap items-center gap-2">
+            <li>
+              <Link href="/" className="rounded-sm underline-offset-4 hover:text-gold-deep hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold">
+                Home
+              </Link>
+            </li>
+            <li aria-hidden>/</li>
+            <li aria-current="page" className="text-foreground">Contact</li>
+          </ol>
+        </nav>
+
+        <SectionHeading
+          as="h1"
+          eyebrow="Contact"
+          title="Contact us & book your stay in Dibrugarh"
+          description="We'd love to hear from you — call, WhatsApp or send a booking request."
+          align="left"
+        />
 
         <div className="mt-12 grid gap-10 lg:grid-cols-[1fr_1.3fr]">
           <div className="space-y-5">
@@ -22,14 +51,44 @@ export default function ContactPage() {
               <MapPin className="mt-0.5 h-5 w-5 shrink-0 text-gold-deep" />
               <p className="text-sm leading-relaxed text-muted-foreground">{site.location.address}</p>
             </div>
-            <div className="flex items-center gap-3 rounded-xl border border-border bg-card p-5 shadow-[0_2px_10px_-2px_rgba(0,0,0,0.06)]">
-              <Phone className="h-5 w-5 shrink-0 text-gold-deep" />
-              <p className="text-sm text-muted-foreground">{site.phone}</p>
-            </div>
-            <div className="flex items-center gap-3 rounded-xl border border-border bg-card p-5 shadow-[0_2px_10px_-2px_rgba(0,0,0,0.06)]">
-              <Mail className="h-5 w-5 shrink-0 text-gold-deep" />
-              <p className="text-sm text-muted-foreground">{site.email}</p>
-            </div>
+            {site.phones.map((phone) => (
+              <a
+                key={phone}
+                href={phoneHref(phone)}
+                className="flex min-h-11 items-center gap-3 rounded-xl border border-border bg-card p-5 shadow-[0_2px_10px_-2px_rgba(0,0,0,0.06)] transition-colors hover:border-gold/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold"
+              >
+                <Phone className="h-5 w-5 shrink-0 text-gold-deep" />
+                <p className="text-sm text-muted-foreground">{phone}</p>
+              </a>
+            ))}
+            {site.email && (
+              <a
+                href={`mailto:${site.email}`}
+                className="flex min-h-11 items-center gap-3 rounded-xl border border-border bg-card p-5 shadow-[0_2px_10px_-2px_rgba(0,0,0,0.06)] transition-colors hover:border-gold/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold"
+              >
+                <Mail className="h-5 w-5 shrink-0 text-gold-deep" />
+                <p className="text-sm text-muted-foreground">{site.email}</p>
+              </a>
+            )}
+            <p className="px-1 text-sm leading-relaxed text-muted-foreground">
+              Still choosing? Browse our{" "}
+              <Link href="/rooms" className="font-semibold text-gold-deep underline-offset-4 hover:underline">
+                themed rooms and rates
+              </Link>
+              , see the{" "}
+              <Link href="/gallery" className="font-semibold text-gold-deep underline-offset-4 hover:underline">
+                photo gallery
+              </Link>
+              , learn{" "}
+              <Link href="/about" className="font-semibold text-gold-deep underline-offset-4 hover:underline">
+                about us
+              </Link>{" "}
+              or read the{" "}
+              <Link href="/#faq" className="font-semibold text-gold-deep underline-offset-4 hover:underline">
+                frequently asked questions
+              </Link>
+              .
+            </p>
           </div>
 
           <BookingForm />

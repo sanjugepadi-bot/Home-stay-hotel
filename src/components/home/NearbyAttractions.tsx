@@ -25,14 +25,16 @@ export function NearbyAttractions() {
       .sort((a, b) => a.km - b.km);
   }, [category]);
 
+  if (attractions.length === 0) return null;
+
   const mapSrc = `https://www.openstreetmap.org/export/embed.html?bbox=${site.location.lng - 0.08}%2C${
     site.location.lat - 0.06
   }%2C${site.location.lng + 0.08}%2C${site.location.lat + 0.06}&layer=mapnik&marker=${site.location.lat}%2C${site.location.lng}`;
 
   return (
-    <section id="nearby" className="bg-muted/30 py-20 sm:py-28">
+    <section id="nearby" className="scroll-mt-20 bg-muted/30 py-20 sm:py-28">
       <Container>
-        <SectionHeading eyebrow="Explore the Area" title="Nearby attractions" description="Real distances and estimated drive times from Serenity Stays." />
+        <SectionHeading eyebrow="Explore the Area" title="Nearby attractions" description={`Real distances and estimated drive times from ${site.name}.`} />
 
         <Tabs value={category} onValueChange={(v) => setCategory(v as AttractionCategory)} className="mt-10 flex justify-center">
           <TabsList>

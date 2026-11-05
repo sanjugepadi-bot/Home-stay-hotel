@@ -6,8 +6,10 @@ import { getIcon } from "@/lib/icons";
 import { experiences } from "@/data/experiences";
 
 export function Experiences() {
+  if (experiences.length === 0) return null;
+
   return (
-    <section id="experiences" className="py-20 sm:py-28">
+    <section id="experiences" className="scroll-mt-20 py-20 sm:py-28">
       <Container>
         <SectionHeading
           eyebrow="Experiences"

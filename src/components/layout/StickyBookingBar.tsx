@@ -1,31 +1,16 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { usePathname } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 import { CalendarCheck } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { buttonVariants } from "@/components/ui/Button";
 import { site } from "@/data/site";
-import { rooms } from "@/data/rooms";
+import { lowestRoomPrice } from "@/data/rooms";
 import { formatINR } from "@/lib/utils";
+import { useStickyBarVisible } from "@/hooks/useStickyBarVisible";
 
 export function StickyBookingBar() {
-  const pathname = usePathname();
-  const isHome = pathname === "/";
-  const [visible, setVisible] = useState(false);
-
-  useEffect(() => {
-    if (!isHome) return;
-    const onScroll = () => setVisible(window.scrollY > window.innerHeight * 0.9);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, [isHome]);
-
-  if (!isHome) return null;
-
-  const startingFrom = Math.min(...rooms.map((r) => r.priceFrom));
+  const visible = useStickyBarVisible();
 
   return (
     <AnimatePresence>
@@ -42,7 +27,7 @@ export function StickyBookingBar() {
               <CalendarCheck className="h-4.5 w-4.5 text-gold-deep" />
               <span className="font-semibold text-foreground">{site.name}</span>
               <span className="hidden text-muted-foreground sm:inline">
-                — stays from {formatINR(startingFrom)}/night
+                — rooms from {formatINR(lowestRoomPrice)}
               </span>
             </div>
             <a href="#book" className={buttonVariants({ variant: "gold", size: "md" })}>

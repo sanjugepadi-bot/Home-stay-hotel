@@ -1,36 +1,47 @@
+import { formatINR } from "@/lib/utils";
+import { site } from "@/data/site";
+import { rooms } from "@/data/rooms";
+
 export type Faq = { question: string; answer: string };
+
+const rateLine = rooms.map((r) => `${r.name.replace("The ", "")} ${formatINR(r.price)}`).join(", ");
 
 export const faqs: Faq[] = [
   {
-    question: "What time is check-in and check-out?",
-    answer: "Check-in is from 1:00 PM and check-out is by 11:00 AM. Early check-in or late check-out can be arranged on request, subject to availability.",
+    question: "Where is Homestay by the Tea Garden?",
+    answer: `${site.location.address}.`,
   },
   {
-    question: "What is your cancellation policy?",
-    answer: "Free cancellation up to 48 hours before check-in. Cancellations within 48 hours are charged for the first night.",
+    question: "Is Homestay by the Tea Garden the first homestay in Dibrugarh?",
+    answer:
+      "The owners describe it as the first homestay established in Dibrugarh, with more than 10 years of hospitality experience.",
   },
   {
-    question: "Are pets allowed?",
-    answer: "Yes — our Cottage Stay is pet-friendly. Please let us know in advance so we can prepare accordingly.",
+    question: "Is it an award-winning homestay?",
+    answer: `Yes — Homestay by the Tea Garden has received a Best Homestay / Best Hospitality award. Each of its ${rooms.length} rooms is also individually themed.`,
   },
   {
-    question: "Is food included in the stay?",
-    answer: "Breakfast is included with every booking. Lunch and dinner (home-cooked, local cuisine) can be added for an additional charge.",
+    question: "What are the room rates?",
+    answer: `Room rates: ${rateLine}. Please confirm availability and any extra charges when you enquire.`,
   },
   {
-    question: "How far are you from the nearest town?",
-    answer: "We're about 15-20 minutes from the town centre by road, with taxis and auto-rickshaws easily available.",
+    question: "Is breakfast included?",
+    answer:
+      "Breakfast is included in the rates for the Gold, White, Green, Blue, Black and Yellow rooms (the Gold Room also includes snacks and other edibles). No inclusions are listed for the Pink and Red rooms — please ask when you enquire.",
   },
   {
-    question: "Do you offer airport or railway station pickup?",
-    answer: "Yes, airport and railway station pickups can be arranged for an additional fee — just share your travel details in advance.",
+    question: "Is there a ground-floor room?",
+    answer:
+      "Yes — the Yellow Room is on the ground floor with natural light, ideal for those unable to climb stairs. It has an attached private kitchen with utensils and a gas stove, free to use.",
   },
   {
-    question: "Is WiFi available throughout the property?",
-    answer: "Yes, complimentary high-speed WiFi covers all rooms and common areas, ideal for remote work.",
+    question: "Which rooms have a tea garden balcony?",
+    answer:
+      "The White Room has a spacious balcony overlooking a tea garden, and the Blue and Pink rooms have tea garden facing balconies.",
   },
   {
-    question: "Can you accommodate extra guests?",
-    answer: "Most rooms can accommodate one extra guest on request for an additional charge — ask us while booking.",
+    question: "How do I book a room?",
+    answer:
+      "Fill in the booking request on this page — it opens WhatsApp with your details so the host can reply directly. No payment is taken on this website.",
   },
 ];

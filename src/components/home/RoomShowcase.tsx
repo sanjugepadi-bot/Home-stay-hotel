@@ -4,6 +4,8 @@ import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Reveal } from "@/components/ui/Reveal";
 import { RoomCard } from "./RoomCard";
+import Link from "next/link";
+import { buttonVariants } from "@/components/ui/Button";
 import { rooms } from "@/data/rooms";
 import { useRecentlyViewed } from "@/hooks/useRecentlyViewed";
 import { History } from "lucide-react";
@@ -13,12 +15,12 @@ export function RoomShowcase() {
   const recentRooms = rooms.filter((r) => ids.includes(r.id));
 
   return (
-    <section id="rooms" className="bg-muted/30 py-20 sm:py-28">
+    <section id="rooms" className="scroll-mt-20 bg-muted/30 py-20 sm:py-28">
       <Container>
         <SectionHeading
           eyebrow="Rooms & Stays"
-          title="Find your perfect space"
-          description="From cosy deluxe rooms to a private cottage — each stay is thoughtfully furnished for comfort."
+          title="Choose your room"
+          description={`${rooms.length} rooms, each with its own colour and character.`}
         />
 
         {recentRooms.length > 0 && (
@@ -32,12 +34,18 @@ export function RoomShowcase() {
           </div>
         )}
 
-        <div className="mt-12 grid gap-7 sm:grid-cols-2 xl:grid-cols-4">
+        <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 lg:gap-7 xl:grid-cols-4">
           {rooms.map((room, i) => (
-            <Reveal key={room.id} delay={i * 0.08}>
+            <Reveal key={room.id} delay={(i % 4) * 0.08} className="h-full">
               <RoomCard room={room} index={i} />
             </Reveal>
           ))}
+        </div>
+
+        <div className="mt-12 text-center">
+          <Link href="/rooms" className={buttonVariants({ variant: "outline", size: "lg" })}>
+            Compare all rooms &amp; rates
+          </Link>
         </div>
       </Container>
     </section>

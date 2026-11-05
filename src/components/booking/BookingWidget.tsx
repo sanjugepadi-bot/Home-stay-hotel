@@ -21,7 +21,7 @@ export function BookingWidget({ className }: { className?: string }) {
             min={today}
             value={checkIn}
             onChange={(e) => setCheckIn(e.target.value)}
-            className="w-full rounded-lg border border-border bg-background/80 px-3 py-2.5 text-sm text-foreground"
+            className="w-full min-h-11 rounded-lg border border-border bg-background/80 px-3 py-2.5 text-base text-foreground focus:border-gold focus:outline-none focus:ring-2 focus:ring-gold/20 sm:text-sm"
           />
         </label>
         <label className="block">
@@ -33,7 +33,7 @@ export function BookingWidget({ className }: { className?: string }) {
             min={checkIn || today}
             value={checkOut}
             onChange={(e) => setCheckOut(e.target.value)}
-            className="w-full rounded-lg border border-border bg-background/80 px-3 py-2.5 text-sm text-foreground"
+            className="w-full min-h-11 rounded-lg border border-border bg-background/80 px-3 py-2.5 text-base text-foreground focus:border-gold focus:outline-none focus:ring-2 focus:ring-gold/20 sm:text-sm"
           />
         </label>
         <label className="block">

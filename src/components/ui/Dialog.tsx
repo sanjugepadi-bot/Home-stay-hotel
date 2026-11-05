@@ -26,7 +26,7 @@ export function DialogContent({
       >
         {children}
         {showClose && (
-          <DialogPrimitive.Close className="absolute right-4 top-4 rounded-full bg-foreground/10 p-2 text-foreground transition-colors hover:bg-foreground/20">
+          <DialogPrimitive.Close className="absolute right-3 top-3 flex h-11 w-11 items-center justify-center rounded-full bg-foreground/10 text-foreground transition-colors hover:bg-foreground/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold">
             <X className="h-4 w-4" />
             <span className="sr-only">Close</span>
           </DialogPrimitive.Close>

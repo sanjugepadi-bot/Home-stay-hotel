@@ -11,14 +11,19 @@ import { Container } from "@/components/ui/Container";
 import { buttonVariants } from "@/components/ui/Button";
 import { ThemeToggle } from "./ThemeToggle";
 import { site } from "@/data/site";
+import { reviews } from "@/data/reviews";
+import { experiences } from "@/data/experiences";
+import { attractions } from "@/data/attractions";
 import { cn } from "@/lib/utils";
 
+// Sections without real content are hidden, so their nav links are too.
 const links = [
+  { href: "#legacy", label: "Our Legacy" },
   { href: "#rooms", label: "Rooms" },
-  { href: "#experiences", label: "Experiences" },
+  ...(experiences.length ? [{ href: "#experiences", label: "Experiences" }] : []),
   { href: "#gallery", label: "Gallery" },
-  { href: "#reviews", label: "Reviews" },
-  { href: "#nearby", label: "Nearby" },
+  ...(reviews.length ? [{ href: "#reviews", label: "Reviews" }] : []),
+  ...(attractions.length ? [{ href: "#nearby", label: "Nearby" }] : []),
   { href: "#faq", label: "FAQ" },
 ];
 
@@ -42,6 +47,18 @@ export function Navbar() {
 
   const transparent = isHome && !scrolledPast;
 
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
+    window.addEventListener("keydown", onKey);
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      document.body.style.overflow = prevOverflow;
+    };
+  }, [open]);
+
   return (
     <header
       className={cn(
@@ -52,20 +69,22 @@ export function Navbar() {
       )}
     >
       <Container className="flex items-center justify-between">
-        <Link href="/#top" className="group flex items-center gap-2.5 font-display text-xl tracking-tight">
-          <span className="flex h-10 w-10 items-center justify-center rounded-full bg-forest text-gold ring-2 ring-gold/40 transition-transform group-hover:scale-105">
+        <Link href="/#top" className="group flex min-w-0 items-center gap-2.5 font-display tracking-tight">
+          <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-forest text-gold ring-2 ring-gold/40 transition-transform group-hover:scale-105">
             <Leaf className="h-5 w-5" />
           </span>
-          {site.name}
+          <span className="max-w-[10.5rem] text-base leading-tight sm:max-w-none sm:text-xl lg:max-w-[10.5rem] xl:max-w-none">
+            {site.name}
+          </span>
         </Link>
 
-        <nav className="hidden items-center gap-8 lg:flex">
+        <nav className="hidden items-center gap-5 lg:flex xl:gap-8">
           {links.map((l) => (
             <Link
               key={l.href}
               href={`/${l.href}`}
               className={cn(
-                "text-sm font-semibold tracking-wide transition-colors hover:text-gold",
+                "rounded-sm text-sm font-semibold tracking-wide transition-colors hover:text-gold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold",
                 transparent ? "text-beige-light/90" : "text-foreground/85"
               )}
             >
@@ -82,9 +101,10 @@ export function Navbar() {
         </div>
 
         <button
-          className="flex h-10 w-10 items-center justify-center rounded-full transition-colors hover:bg-current/10 lg:hidden"
+          className="flex h-11 w-11 items-center justify-center rounded-full transition-colors hover:bg-current/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold lg:hidden"
           onClick={() => setOpen(true)}
           aria-label="Open menu"
+          aria-expanded={open}
         >
           <Menu className="h-6 w-6" />
         </button>
@@ -99,16 +119,16 @@ export function Navbar() {
             className="fixed inset-0 z-50 bg-forest lg:hidden"
           >
             <div className="flex items-center justify-between border-b border-beige-light/10 px-5 py-5">
-              <span className="flex items-center gap-2.5 font-display text-xl text-beige-light">
-                <span className="flex h-9 w-9 items-center justify-center rounded-full bg-gold text-forest">
+              <span className="flex min-w-0 items-center gap-2.5 font-display text-beige-light">
+                <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-gold text-forest">
                   <Leaf className="h-4.5 w-4.5" />
                 </span>
-                {site.name}
+                <span className="max-w-[10.5rem] text-base leading-tight sm:max-w-none sm:text-xl">{site.name}</span>
               </span>
               <button
                 onClick={() => setOpen(false)}
                 aria-label="Close menu"
-                className="flex h-10 w-10 items-center justify-center rounded-full text-beige-light transition-colors hover:bg-beige-light/10"
+                className="flex h-11 w-11 items-center justify-center rounded-full text-beige-light transition-colors hover:bg-beige-light/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold"
               >
                 <X className="h-6 w-6" />
               </button>
@@ -122,7 +142,7 @@ export function Navbar() {
                   initial={{ opacity: 0, y: 12 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.05 * i, duration: 0.35 }}
-                  className="text-2xl text-beige-light transition-colors hover:text-gold"
+                  className="rounded-sm text-2xl text-beige-light transition-colors hover:text-gold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold"
                 >
                   {l.label}
                 </MotionLink>
@@ -134,6 +154,7 @@ export function Navbar() {
               >
                 Book Now
               </Link>
+              <ThemeToggle className="mt-2 text-beige-light" />
             </nav>
           </motion.div>
         )}

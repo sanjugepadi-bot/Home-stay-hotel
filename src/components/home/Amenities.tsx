@@ -6,6 +6,8 @@ import { getIcon } from "@/lib/icons";
 import { amenities } from "@/data/amenities";
 
 export function Amenities() {
+  if (amenities.length === 0) return null;
+
   return (
     <section className="bg-muted/30 py-20 sm:py-28">
       <Container>

@@ -13,9 +13,9 @@ export const buttonVariants = cva(
         whatsapp: "bg-[#25D366] text-white hover:bg-[#1ebe57] shadow-lg shadow-[#25D366]/25 hover:shadow-xl hover:-translate-y-0.5",
       },
       size: {
-        sm: "h-9 px-4 text-sm",
-        md: "h-11 px-6 text-sm",
-        lg: "h-14 px-8 text-base",
+        sm: "h-11 px-4 text-[clamp(0.8125rem,0.78rem+0.15vw,0.875rem)]",
+        md: "h-11 px-6 text-[clamp(0.8125rem,0.78rem+0.15vw,0.875rem)]",
+        lg: "h-14 px-8 text-[clamp(0.9375rem,0.88rem+0.3vw,1.0625rem)]",
         icon: "h-11 w-11",
       },
     },

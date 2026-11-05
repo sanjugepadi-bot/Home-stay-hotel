@@ -9,6 +9,7 @@ export function SectionHeading({
    * (e.g. AI Travel Assistant) regardless of the site-wide light/dark theme —
    * it forces light/cream text so headings never go dark-on-dark. */
   tone = "default",
+  as: Heading = "h2",
   className,
 }: {
   eyebrow?: string;
@@ -16,6 +17,8 @@ export function SectionHeading({
   description?: string;
   align?: "center" | "left";
   tone?: "default" | "inverted";
+  /** Use "h1" on pages whose main heading this is (one H1 per page). */
+  as?: "h1" | "h2";
   className?: string;
 }) {
   const inverted = tone === "inverted";
@@ -40,18 +43,18 @@ export function SectionHeading({
           {eyebrow}
         </span>
       )}
-      <h2
+      <Heading
         className={cn(
-          "text-3xl leading-[1.12] tracking-tight sm:text-4xl lg:text-5xl",
+          "text-[clamp(1.875rem,1.3rem+2.8vw,3rem)] leading-[1.12] tracking-tight",
           inverted ? "text-beige-light" : "text-foreground"
         )}
       >
         {title}
-      </h2>
+      </Heading>
       {description && (
         <p
           className={cn(
-            "mt-5 text-base leading-relaxed sm:text-lg",
+            "mt-5 text-[clamp(1rem,0.94rem+0.3vw,1.125rem)] leading-relaxed",
             inverted ? "text-beige-light/75" : "text-muted-foreground"
           )}
         >
