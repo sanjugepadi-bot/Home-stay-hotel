@@ -5,7 +5,8 @@ import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { RoomListCard } from "@/components/rooms/RoomListCard";
 import { EnquiryCta } from "@/components/rooms/EnquiryCta";
-import { rooms, roomHasPage, roomPath } from "@/data/rooms";
+import { rooms, roomCountPhrase, roomHasPage, roomPath } from "@/data/rooms";
+import { PartyRoomCard } from "@/components/home/PartyRoomCard";
 import { site } from "@/data/site";
 import { formatINR } from "@/lib/utils";
 import { buildMetadata } from "@/lib/seo";
@@ -19,7 +20,7 @@ const title = "Rooms & Rates | Accommodation in Dibrugarh | Tea Garden Homestay"
 export const metadata: Metadata = buildMetadata({
   title: { absolute: title },
   socialTitle: title,
-  description: `${rooms.length} individually themed rooms in Dibrugarh, Assam — ${nameList}. See room rates, what's included and photographs.`,
+  description: `${roomCountPhrase} in Dibrugarh, Assam — ${nameList}, plus a separate Party Room. See room rates, what's included and photographs.`,
   path: "/rooms",
 });
 
@@ -71,7 +72,7 @@ export default function RoomsPage() {
             as="h1"
             eyebrow="Rooms & Rates"
             title="Themed accommodation in Dibrugarh"
-            description={`${rooms.length} individually themed rooms at ${site.name}, Seujpur — each with its own colour and character. Looking for places to stay in Dibrugarh for a family trip, a couple's getaway or a budget stay? Start here.`}
+            description={`${roomCountPhrase} at ${site.name}, Seujpur — each with its own colour and character — plus a separate Party Room. Looking for places to stay in Dibrugarh for a family trip, a couple's getaway or a budget stay? Start here.`}
           />
 
           <section className="mt-16" aria-labelledby="suit-heading">
@@ -107,13 +108,17 @@ export default function RoomsPage() {
 
           <section className="mt-20" aria-labelledby="all-rooms-heading">
             <h2 id="all-rooms-heading" className="text-2xl text-foreground sm:text-3xl">
-              Our {rooms.length} themed rooms
+              Our themed rooms
             </h2>
             <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 lg:gap-7">
               {rooms.map((room, i) => (
                 <RoomListCard key={room.id} room={room} index={i} />
               ))}
             </div>
+          </section>
+
+          <section className="mt-20" aria-label="The Party Room">
+            <PartyRoomCard />
           </section>
 
           <section className="mt-20" aria-labelledby="rates-heading">

@@ -1,0 +1,82 @@
+import Image from "next/image";
+import { MessageCircle, PartyPopper, Sparkles } from "lucide-react";
+import { Reveal } from "@/components/ui/Reveal";
+import { buttonVariants } from "@/components/ui/Button";
+import { partyRoom } from "@/data/party-room";
+import { site, whatsappLink } from "@/data/site";
+import { cn } from "@/lib/utils";
+
+/**
+ * The separate Party Room — deliberately styled differently from the guest-room cards (midnight + gold
+ * panel instead of a photo card). Shows only owner-confirmed content; fields stay hidden until supplied.
+ */
+export function PartyRoomCard({ className }: { className?: string }) {
+  const hasDetails = Boolean(partyRoom.description || partyRoom.capacity || partyRoom.rate || partyRoom.facilities.length);
+  const photo = partyRoom.photos[0];
+
+  return (
+    <Reveal className={className}>
+      <article
+        id="party-room"
+        className="relative isolate overflow-hidden rounded-[2rem] border border-gold/40 bg-[radial-gradient(60rem_26rem_at_90%_0%,rgba(201,162,75,0.22),transparent_60%),linear-gradient(135deg,#1b1530_0%,#241a3a_55%,#15112a_100%)] p-7 text-beige-light shadow-[0_40px_80px_-34px_rgba(20,10,40,0.8)] sm:p-10 lg:p-12"
+      >
+        <div aria-hidden className="pointer-events-none absolute -right-16 -top-16 -z-10 h-64 w-64 rounded-full border border-gold/25" />
+        <div aria-hidden className="pointer-events-none absolute -right-6 -top-6 -z-10 h-40 w-40 rounded-full border border-gold/20" />
+
+        <div className={cn("grid items-center gap-8", photo && "lg:grid-cols-[1.1fr_0.9fr] lg:gap-12")}>
+          <div>
+            <span className="inline-flex items-center gap-2.5 text-xs font-bold uppercase tracking-[0.22em] text-gold-light sm:text-sm">
+              <PartyPopper className="h-4.5 w-4.5" aria-hidden /> Also at the homestay
+            </span>
+            <h3 className="mt-4 font-display text-[clamp(2rem,1.4rem+2vw,3.25rem)] font-medium leading-tight text-beige-light">
+              {partyRoom.name}
+            </h3>
+            <p className="mt-2 text-sm font-semibold uppercase tracking-[0.18em] text-gold-light/90">
+              A separate space — apart from the guest bedrooms
+            </p>
+
+            {partyRoom.description && (
+              <p className="mt-5 max-w-2xl text-[1.0625rem] leading-relaxed text-beige-light/90 xl:text-lg">{partyRoom.description}</p>
+            )}
+
+            {(partyRoom.capacity || partyRoom.rate || partyRoom.facilities.length > 0 || partyRoom.overnightStay) && (
+              <ul className="mt-5 flex flex-wrap gap-2">
+                {partyRoom.capacity && <li className="rounded-full border border-gold/35 bg-gold/10 px-3.5 py-1.5 text-sm font-medium text-gold-light">{partyRoom.capacity}</li>}
+                {partyRoom.rate && <li className="rounded-full border border-gold/35 bg-gold/10 px-3.5 py-1.5 text-sm font-medium text-gold-light">{partyRoom.rate}</li>}
+                {partyRoom.overnightStay && <li className="rounded-full border border-gold/35 bg-gold/10 px-3.5 py-1.5 text-sm font-medium text-gold-light">Overnight stays available</li>}
+                {partyRoom.facilities.map((f) => (
+                  <li key={f} className="rounded-full border border-gold/35 bg-gold/10 px-3.5 py-1.5 text-sm font-medium text-gold-light">{f}</li>
+                ))}
+              </ul>
+            )}
+
+            {!hasDetails && (
+              <p className="mt-6 flex max-w-2xl items-start gap-3 rounded-2xl border border-dashed border-gold/45 bg-white/[0.04] p-4 text-[0.97rem] leading-relaxed text-beige-light/90 sm:p-5">
+                <Sparkles className="mt-1 h-4.5 w-4.5 shrink-0 text-gold-light" aria-hidden />
+                <span>
+                  The homestay also has a separate Party Room. Photographs, capacity, facilities and rates are being
+                  confirmed with the owner — please ask the host for details.
+                </span>
+              </p>
+            )}
+
+            <a
+              href={whatsappLink(`Hi ${site.name}! I'd like to know about the Party Room.`)}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={cn(buttonVariants({ variant: "gold", size: "lg" }), "mt-7")}
+            >
+              <MessageCircle className="h-4.5 w-4.5" aria-hidden /> Ask about the Party Room
+            </a>
+          </div>
+
+          {photo && (
+            <div className="relative aspect-[4/3] overflow-hidden rounded-3xl ring-1 ring-gold/30">
+              <Image src={photo.src} alt={photo.alt} fill sizes="(min-width: 1024px) 40vw, 92vw" quality={90} className="object-cover" />
+            </div>
+          )}
+        </div>
+      </article>
+    </Reveal>
+  );
+}

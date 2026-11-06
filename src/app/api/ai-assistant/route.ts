@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import Anthropic from "@anthropic-ai/sdk";
 import { site } from "@/data/site";
-import { rooms } from "@/data/rooms";
+import { rooms, TOTAL_ROOMS } from "@/data/rooms";
 import { formatINR } from "@/lib/utils";
 
 export const runtime = "nodejs";
@@ -20,6 +20,7 @@ function systemPrompt() {
 
 Verified facts about the homestay (the ONLY facts you may state about it):
 ${roomsList}
+- The homestay has ${TOTAL_ROOMS} rooms in total; only the ${rooms.length} rooms above have details available. It also has a separate Party Room (not a guest bedroom) — no details about it (capacity, rates, facilities, photos) are available.
 Contact: ${site.phones.join(" / ")}.
 
 Rules:

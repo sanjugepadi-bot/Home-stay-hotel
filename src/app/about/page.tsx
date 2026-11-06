@@ -6,7 +6,7 @@ import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { Reveal } from "@/components/ui/Reveal";
 import { OurJourney } from "@/components/home/OurJourney";
 import { EnquiryCta } from "@/components/rooms/EnquiryCta";
-import { rooms, roomHasPage, roomPath, lowestRoomPrice, highestRoomPrice } from "@/data/rooms";
+import { rooms, roomCountPhrase, roomHasPage, roomPath, lowestRoomPrice, highestRoomPrice } from "@/data/rooms";
 import { awardSentence, legacy } from "@/data/legacy";
 import { site, phoneHref } from "@/data/site";
 import { formatINR } from "@/lib/utils";
@@ -18,7 +18,7 @@ const title = `About ${site.name} | Hospitality in Dibrugarh`;
 export const metadata: Metadata = buildMetadata({
   title: { absolute: title },
   socialTitle: title,
-  description: `${site.name} in Seujpur, Dibrugarh — over a decade of hospitality, regarded by its owners as the city's first homestay, with ${rooms.length} themed rooms.`,
+  description: `${site.name} in Seujpur, Dibrugarh — over a decade of hospitality, regarded by its owners as the city's first homestay, with ${roomCountPhrase}.`,
   path: "/about",
 });
 
@@ -48,7 +48,7 @@ export default function AboutPage() {
                 <p className="mt-4 leading-relaxed text-muted-foreground">
                   {site.name} is a homestay at {site.location.streetAddress}, {site.location.locality},{" "}
                   {site.location.region}. For more than ten years it has welcomed guests with traditional Assamese
-                  hospitality, and its owners regard it as the first homestay established in Dibrugarh.
+                  hospitality. Established in {legacy.foundedYear}, it is the first homestay in Dibrugarh and the first luxury homestay in the entire North East India.
                 </p>
                 <p className="mt-4 leading-relaxed text-muted-foreground">
                   To book, message the host on WhatsApp or call — availability and rates are confirmed directly with the
@@ -63,8 +63,8 @@ export default function AboutPage() {
                   Rooms with their own character
                 </h2>
                 <p className="mt-4 leading-relaxed text-muted-foreground">
-                  The homestay has {rooms.length} individually themed rooms, each styled around a colour. This is what
-                  each one is known for:
+                  The homestay has {roomCountPhrase}, each styled around a colour, and a separate Party Room.
+                  This is what each of the themed rooms is known for:
                 </p>
                 <ul className="mt-5 divide-y divide-border rounded-2xl border border-border bg-card">
                   {rooms.map((r) => (
@@ -133,7 +133,7 @@ export default function AboutPage() {
               </div>
               <div>
                 <dt className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Rooms</dt>
-                <dd className="mt-1 text-foreground">{rooms.length} individually themed rooms</dd>
+                <dd className="mt-1 text-foreground">{roomCountPhrase}, plus a separate Party Room</dd>
               </div>
               <div>
                 <dt className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Room rates</dt>

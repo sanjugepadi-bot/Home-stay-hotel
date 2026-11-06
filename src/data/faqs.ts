@@ -1,6 +1,6 @@
 import { formatINR } from "@/lib/utils";
 import { site } from "@/data/site";
-import { rooms } from "@/data/rooms";
+import { rooms, TOTAL_ROOMS } from "@/data/rooms";
 
 export type Faq = { question: string; answer: string };
 
@@ -18,7 +18,7 @@ export const faqs: Faq[] = [
   },
   {
     question: "Is it an award-winning homestay?",
-    answer: `Yes — Homestay by the Tea Garden has received a Best Homestay / Best Hospitality award. Each of its ${rooms.length} rooms is also individually themed.`,
+    answer: `Yes — Homestay by the Tea Garden has received a Best Homestay / Best Hospitality award from the Government of Assam. The homestay has ${TOTAL_ROOMS} rooms, including ${rooms.length} individually themed rooms — Gold, White, Green, Blue, Black, Yellow, Pink and Red — and a separate Party Room.`,
   },
   {
     question: "What are the room rates?",

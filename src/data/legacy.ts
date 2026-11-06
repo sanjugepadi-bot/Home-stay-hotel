@@ -20,19 +20,17 @@ export const legacy = {
   /** OWNER-STATED: "more than 10 years of hospitality experience". */
   yearsLabel: "10+",
 
-  /** OWNER-STATED: owner claims it is the first homestay established in Dibrugarh.
-   * Worded as the owners' own view until the claim can be independently verified. */
-  pioneerLine: "Regarded by its owners as the first homestay established in Dibrugarh.",
+  /** OWNER-STATED: the first homestay in Dibrugarh and the first luxury homestay in North East India. */
+  pioneerLine: "Established in 2016 as the first homestay in Dibrugarh and the first luxury homestay in the entire North East India.",
 
-  /** OWNER TO PROVIDE: year the homestay was established (e.g. "2013").
-   * When set, it appears in the Journey timeline and in the search-engine data. */
-  foundedYear: "",
+  /** OWNER-STATED: established in 2016. Appears in the Journey timeline and in the search-engine data. */
+  foundedYear: "2016",
 
   award: {
     /** OWNER-STATED: the owner says the homestay received a Best Homestay / Best Hospitality award. */
     title: "Best Homestay / Best Hospitality Award",
-    /** OWNER TO PROVIDE: who presented the award (e.g. a tourism board or association). */
-    organisation: "",
+    /** OWNER-STATED: the award was presented by the Government of Assam. */
+    organisation: "Government of Assam",
     /** OWNER TO PROVIDE: year the award was received. */
     year: "",
     /** OWNER TO PROVIDE (optional): a sentence about the award. */
@@ -56,7 +54,7 @@ export const legacy = {
       label: "The beginning",
       year: "", // OWNER TO PROVIDE
       title: "A homestay in Dibrugarh",
-      text: "Homestay by the Tea Garden began welcoming guests in Dibrugarh — regarded by its owners as the city's first homestay.",
+      text: "Homestay by the Tea Garden began welcoming guests in Dibrugarh — the city's first homestay and the first luxury homestay in the entire North East India.",
     },
     {
       label: "A decade of welcome",
@@ -74,8 +72,8 @@ export const legacy = {
       label: "Today",
       year: "",
       title: "Themed rooms by the tea garden",
-      // The room count is filled in from the rooms data.
-      text: "{rooms} individually themed rooms — Gold, White, Green, Blue, Black, Yellow, Pink and Red — in Seujpur, Dibrugarh.",
+      // The room counts are filled in from the rooms data ({total} = all rooms, {themed} = themed rooms).
+      text: "{total} rooms in Seujpur, Dibrugarh — including {themed} individually themed rooms: Gold, White, Green, Blue, Black, Yellow, Pink and Red — plus a separate Party Room.",
     },
   ],
 };

@@ -7,14 +7,14 @@ import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { BookingWidget } from "@/components/booking/BookingWidget";
 import { site, whatsappLink } from "@/data/site";
-import { rooms } from "@/data/rooms";
+import { TOTAL_ROOMS } from "@/data/rooms";
 import { legacy } from "@/data/legacy";
 import heroImage from "../../../public/images/homestay/hero/hero-tea-garden-bedroom-portrait-4x5.webp";
 
 const badges = [
   { icon: CalendarClock, label: `${legacy.yearsLabel} years of hospitality` },
   { icon: Award, label: "Award-winning homestay" },
-  { icon: Palette, label: `${rooms.length} themed rooms` },
+  { icon: Palette, label: `${TOTAL_ROOMS} rooms` },
 ];
 
 const heroAlt = `A sunlit bedroom with a balcony door opening onto a tea garden — illustrative image`;

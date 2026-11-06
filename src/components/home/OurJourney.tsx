@@ -2,7 +2,7 @@ import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Reveal } from "@/components/ui/Reveal";
 import { legacy } from "@/data/legacy";
-import { rooms } from "@/data/rooms";
+import { rooms, TOTAL_ROOMS } from "@/data/rooms";
 
 /**
  * Vertical timeline of the homestay's journey. Content lives in
@@ -11,7 +11,7 @@ import { rooms } from "@/data/rooms";
  */
 export function OurJourney() {
   const steps = legacy.journey.map((s) => {
-    let text = s.text.replace("{rooms}", String(rooms.length));
+    let text = s.text.replace("{total}", String(TOTAL_ROOMS)).replace("{themed}", String(rooms.length));
     // The award step gains detail once the owner confirms who/when.
     if (s.label === "Recognition") {
       const { organisation, year } = legacy.award;

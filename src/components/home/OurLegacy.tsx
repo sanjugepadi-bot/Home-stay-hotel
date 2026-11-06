@@ -177,9 +177,28 @@ export function OurLegacy() {
             <h2 className="font-display text-[clamp(2.4rem,1.3rem+3vw,4.6rem)] font-medium leading-[1.05] tracking-tight text-beige-light">
               Over a decade of welcoming guests to Dibrugarh
             </h2>
-            <p className="mt-7 max-w-2xl text-[clamp(1.0625rem,0.95rem+0.45vw,1.3rem)] leading-relaxed text-beige-light/85">
-              Homestay by the Tea Garden has been offering homestay accommodation in Dibrugarh, Assam for more than ten years — a pioneer in the city’s homestay scene, recognised for its hospitality and its distinctive themed bedrooms.
-            </p>
+            <ul className="mt-8 max-w-2xl space-y-5">
+              <li className="flex items-start gap-4 rounded-2xl border border-gold/25 bg-beige-light/[0.05] p-5 shadow-[0_18px_40px_-24px_rgba(0,0,0,0.7)] sm:gap-5 sm:p-6">
+                <span className="mt-0.5 flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-[#f1d68f] via-gold to-[#9a742a] text-forest shadow-[0_8px_16px_-8px_rgba(0,0,0,0.6)] sm:h-12 sm:w-12">
+                  <Landmark className="h-6 w-6" aria-hidden />
+                </span>
+                <p className="text-[clamp(1.0625rem,0.97rem+0.4vw,1.3rem)] leading-relaxed text-beige-light/90">
+                  Established in <strong className="font-semibold text-gold-light">{legacy.foundedYear}</strong>, it is the{" "}
+                  <strong className="font-semibold text-beige-light">first Homestay in Dibrugarh</strong> and the{" "}
+                  <strong className="font-semibold text-beige-light">first luxury Homestay in the entire North East India</strong>.
+                </p>
+              </li>
+              <li className="flex items-start gap-4 rounded-2xl border border-gold/25 bg-beige-light/[0.05] p-5 shadow-[0_18px_40px_-24px_rgba(0,0,0,0.7)] sm:gap-5 sm:p-6">
+                <span className="mt-0.5 flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-[#f1d68f] via-gold to-[#9a742a] text-forest shadow-[0_8px_16px_-8px_rgba(0,0,0,0.6)] sm:h-12 sm:w-12">
+                  <Award className="h-6 w-6" aria-hidden />
+                </span>
+                <p className="text-[clamp(1.0625rem,0.97rem+0.4vw,1.3rem)] leading-relaxed text-beige-light/90">
+                  Recipient of the{" "}
+                  <strong className="font-semibold text-beige-light">{legacy.award.title}</strong> from the{" "}
+                  <strong className="font-semibold text-gold-light">{legacy.award.organisation}</strong>.
+                </p>
+              </li>
+            </ul>
             <Link
               href="/about"
               className="group/link mt-9 inline-flex min-h-12 items-center gap-2 rounded-full border border-gold/55 px-7 text-base font-semibold text-gold-light transition-colors duration-300 hover:bg-gold hover:text-forest focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold"

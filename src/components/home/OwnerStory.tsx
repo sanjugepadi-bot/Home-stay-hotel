@@ -5,7 +5,7 @@ import { Reveal } from "@/components/ui/Reveal";
 import { SmartImage } from "@/components/ui/SmartImage";
 import { buttonVariants } from "@/components/ui/Button";
 import { site, whatsappLink } from "@/data/site";
-import { rooms } from "@/data/rooms";
+import { TOTAL_ROOMS, rooms } from "@/data/rooms";
 import { photos } from "@/lib/photos";
 
 export function OwnerStory() {
@@ -33,8 +33,8 @@ export function OwnerStory() {
             Come and enjoy traditional Assamese hospitality
           </h2>
           <p className="mt-5 leading-relaxed text-muted-foreground">
-            {site.name} is at {site.location.streetAddress}, {site.location.locality}. Its {rooms.length} rooms
-            are each styled around a colour and a character — the Gold Room&apos;s painted ceiling, the Black
+            {site.name} is at {site.location.streetAddress}, {site.location.locality}. The homestay has {TOTAL_ROOMS} rooms, and {rooms.length}
+            of them are each styled around a colour and a character — the Gold Room&apos;s painted ceiling, the Black
             Room&apos;s retro black-and-white decor, the all-white White Room and the Blue Room with its Bali
             craftworks, among others.
           </p>

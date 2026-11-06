@@ -1,6 +1,6 @@
 import { site } from "@/data/site";
 import { faqs } from "@/data/faqs";
-import { rooms, lowestRoomPrice, highestRoomPrice, roomPath, roomsWithPages, type Room } from "@/data/rooms";
+import { rooms, TOTAL_ROOMS, lowestRoomPrice, highestRoomPrice, roomPath, roomsWithPages, type Room } from "@/data/rooms";
 import { gallery } from "@/data/gallery";
 import { legacy } from "@/data/legacy";
 import { photos } from "@/lib/photos";
@@ -10,10 +10,10 @@ import { absoluteUrl } from "@/lib/seo";
  * Structured data (schema.org JSON-LD).
  *
  * RULES — only owner-confirmed facts go in here:
- *   • included: name, address, phones, price range, 8 themed rooms, owner-confirmed
+ *   • included: name, address, phones, price range, 9 rooms in total (8 themed rooms described), owner-confirmed
  *     features, the award *title*, and real property photographs.
  *   • deliberately NOT included (not confirmed): geo coordinates, check-in/out times,
- *     Wi-Fi / parking / AC / pets, ratings or reviews, distances, founding year.
+ *     Wi-Fi / parking / AC / pets, ratings or reviews, distances. (The founding year, 2016, is now owner-confirmed and included.)
  *   • foundingDate / social links / email / award organiser+year are added
  *     automatically as soon as they are filled in (legacy.ts / site.ts).
  */
@@ -62,7 +62,7 @@ function lodgingNode() {
       addressCountry: site.location.country,
     },
     priceRange: `₹${lowestRoomPrice.toLocaleString("en-IN")}–₹${highestRoomPrice.toLocaleString("en-IN")}`,
-    numberOfRooms: rooms.length,
+    numberOfRooms: TOTAL_ROOMS,
     amenityFeature: site.confirmedFeatures.map((name) => ({
       "@type": "LocationFeatureSpecification",
       name,

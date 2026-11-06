@@ -7,7 +7,8 @@ import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Reveal } from "@/components/ui/Reveal";
 import { buttonVariants } from "@/components/ui/Button";
 import { RoomCard, RoomCardCompact } from "./RoomCard";
-import { rooms } from "@/data/rooms";
+import { rooms, roomCountPhrase } from "@/data/rooms";
+import { PartyRoomCard } from "./PartyRoomCard";
 import { useRecentlyViewed } from "@/hooks/useRecentlyViewed";
 
 const hasPhoto = (r: (typeof rooms)[number]) => Boolean(r.gallery?.length || r.photoKey);
@@ -28,7 +29,7 @@ export function RoomShowcase({ illustrations = {} }: { illustrations?: Record<st
         <SectionHeading
           eyebrow="Rooms & Stays"
           title="Choose your room"
-          description={`${rooms.length} rooms, each with its own colour and character.`}
+          description={`${roomCountPhrase}, each with its own colour and character — plus a separate Party Room.`}
         />
 
         {recentRooms.length > 0 && (
@@ -73,6 +74,10 @@ export function RoomShowcase({ illustrations = {} }: { illustrations?: Record<st
             </div>
           </div>
         )}
+
+        <div className="mt-14 lg:mt-16">
+          <PartyRoomCard />
+        </div>
 
         <div className="mt-14 text-center">
           <Link href="/rooms" className={buttonVariants({ variant: "forest", size: "lg" }) + " px-10"}>
