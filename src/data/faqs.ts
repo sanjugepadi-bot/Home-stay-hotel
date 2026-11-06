@@ -14,7 +14,7 @@ export const faqs: Faq[] = [
   {
     question: "Is Homestay by the Tea Garden the first homestay in Dibrugarh?",
     answer:
-      "The owners describe it as the first homestay established in Dibrugarh, with more than 10 years of hospitality experience.",
+      "The owners describe it as the first homestay established in Dibrugarh, with more than 10 years of hospitality experience. This is also the first luxury Homestay in the entire North East India.",
   },
   {
     question: "Is it an award-winning homestay?",
