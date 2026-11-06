@@ -180,3 +180,13 @@ p {
 @media (prefers-reduced-motion: reduce) {
   .room-card-3d { transform: none !important; transition: none; }
 }
+
+/* Legacy section: slow, transform-only float for the gold arch portal */
+@keyframes legacy-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+.legacy-float { animation: legacy-float 9s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce) {
+  .legacy-float { animation: none; }
+}
