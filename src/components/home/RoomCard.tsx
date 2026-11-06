@@ -3,7 +3,7 @@
 import { useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowRight, Images } from "lucide-react";
+import { ArrowRight, Images, Sparkles } from "lucide-react";
 import { PhotoLightbox } from "@/components/ui/PhotoLightbox";
 import { Button } from "@/components/ui/Button";
 import { useBooking } from "@/components/booking/BookingContext";
@@ -114,7 +114,7 @@ function Plate({ room }: { room: Room }) {
 }
 
 /** Photographed room: an arched "window" onto the owner's photograph on a tilting 3D card. */
-export function RoomCard({ room }: { room: Room; index?: number }) {
+export function RoomCard({ room, illustration }: { room: Room; index?: number; illustration?: string }) {
   const { markViewed } = useRecentlyViewed();
   const [viewerIndex, setViewerIndex] = useState<number | null>(null);
   const gallery = room.gallery ?? [];
@@ -129,13 +129,23 @@ export function RoomCard({ room }: { room: Room; index?: number }) {
         className={`room-card-3d relative flex h-full flex-col rounded-[2rem] border border-white/60 bg-card p-2.5 pb-6 ${LAYERED_SHADOW}`}
       >
         <div className="relative aspect-[4/5] overflow-hidden rounded-t-[9.5rem] rounded-b-[1.4rem] bg-muted">
-          {coverSrc && (
+          {(coverSrc || illustration) && (
             <button
               type="button"
               onClick={() => gallery.length && setViewerIndex(0)}
               aria-label={`View all ${gallery.length} photos of ${room.name}`}
               className="absolute inset-0 block cursor-zoom-in focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-gold"
             >
+              {illustration ? (
+                <Image
+                  src={illustration}
+                  alt={`AI illustration of the ${room.name} theme — not a photograph of the actual room`}
+                  fill
+                  sizes={SIZES}
+                  quality={90}
+                  className="object-cover transition-transform duration-[1100ms] ease-out group-hover:scale-[1.06]"
+                />
+              ) : coverSrc ? (
               <Image
                 src={coverSrc}
                 alt={cover?.alt ?? `${room.name} at ${site.name}, Dibrugarh`}
@@ -145,7 +155,16 @@ export function RoomCard({ room }: { room: Room; index?: number }) {
                 placeholder="blur"
                 className={`object-cover transition-transform duration-[1100ms] ease-out group-hover:scale-[1.06] ${landscape ? "object-[70%_60%]" : "object-center"}`}
               />
+              ) : null}
             </button>
+          )}
+          {illustration && (
+            <span
+              title="AI-generated illustration — not a photograph of the actual room. Real photographs are in the room's gallery."
+              className="pointer-events-none absolute bottom-14 left-3.5 z-[1] inline-flex items-center gap-1.5 rounded-full bg-black/55 px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.14em] text-white/90 backdrop-blur-sm"
+            >
+              <Sparkles className="h-3 w-3 text-gold-light" aria-hidden /> AI Illustration
+            </span>
           )}
           {/* warm light from the top-left + a soft floor shade for the plate */}
           <div aria-hidden className="pointer-events-none absolute inset-0 bg-[linear-gradient(160deg,rgba(255,240,200,0.18),transparent_40%)]" />

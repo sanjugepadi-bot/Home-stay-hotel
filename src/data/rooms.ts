@@ -153,11 +153,11 @@ export function roomPath(room: Room) {
 
 /**
  * Which photograph represents each room on cards. Chosen from the owner's own photos for
- * resolution (all >= 785 px wide, shown at card size only), sharpness and how well they crop to a portrait card —
+ * resolution (all >= 960 px wide), sharpness and how well they crop to a portrait card —
  * the room's page and lightbox still show the full set in its original order.
  */
 const COVER_KEYS: Record<string, PhotoKey> = {
-  gold: "goldWide",
+  gold: "goldBedCeiling",
   blue: "blueWide",
   black: "blackBedWindows",
 };

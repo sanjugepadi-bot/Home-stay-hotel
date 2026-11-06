@@ -23,12 +23,6 @@ export const goldRoomPhotos: RoomPhoto[] = [
     alt: "Gold Theme Bedroom at Homestay by the Tea Garden, Dibrugarh — gilded bed under a painted ceiling",
   },
   {
-    id: "wide-view",
-    photoKey: "goldWide",
-    caption: "Gilded bed beneath a painted ceiling",
-    alt: "Gold Theme Bedroom at Homestay by the Tea Garden, Dibrugarh — wide view of the gilded bed, painted ceiling and golden wall mural",
-  },
-  {
     id: "bed-ceiling",
     photoKey: "goldBedCeiling",
     caption: "Bed and painted ceiling",

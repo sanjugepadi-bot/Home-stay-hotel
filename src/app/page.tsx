@@ -5,6 +5,7 @@ import { Hero } from "@/components/home/Hero";
 import { OurLegacy } from "@/components/home/OurLegacy";
 import { AwardRecognition } from "@/components/home/AwardRecognition";
 import { RoomShowcase } from "@/components/home/RoomShowcase";
+import { getShowcaseImages } from "@/lib/showcase";
 import { WhyChooseUs } from "@/components/home/WhyChooseUs";
 import { Experiences } from "@/components/home/Experiences";
 import { AiTravelAssistant } from "@/components/home/AiTravelAssistant";
@@ -30,7 +31,7 @@ export default function Home() {
       <Hero />
       <OurLegacy />
       <AwardRecognition />
-      <RoomShowcase />
+      <RoomShowcase illustrations={{ ...(getShowcaseImages().gold ? { gold: getShowcaseImages().gold as string } : {}) }} />
       <WhyChooseUs />
       <Experiences />
       <AiTravelAssistant />

@@ -9,7 +9,6 @@ import bathTelephone from "../../public/images/homestay/bathrooms/bathroom-red-t
 import kitchen from "../../public/images/homestay/kitchen/kitchen-comic-art-cabinets.webp";
 
 // Gold Room
-import goldWide from "../../public/images/homestay/gold-room/gold-room-wide-view-painted-ceiling-bed.webp";
 import goldBedCeiling from "../../public/images/homestay/gold-room/gold-room-gilded-bed-and-painted-ceiling.webp";
 import goldBedMarble from "../../public/images/homestay/gold-room/gold-room-gilded-bed-marble-floor.webp";
 import goldMirror from "../../public/images/homestay/gold-room/gold-room-gilded-mirror-and-console.webp";
@@ -62,7 +61,6 @@ import redChairs from "../../public/images/homestay/red-room/red-room-wicker-cha
 export const photos = {
   heroGoldRoom,
   goldRoom1,
-  goldWide,
   goldBedCeiling,
   goldBedMarble,
   goldMirror,

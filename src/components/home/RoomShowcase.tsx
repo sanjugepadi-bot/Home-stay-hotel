@@ -12,7 +12,7 @@ import { useRecentlyViewed } from "@/hooks/useRecentlyViewed";
 
 const hasPhoto = (r: (typeof rooms)[number]) => Boolean(r.gallery?.length || r.photoKey);
 
-export function RoomShowcase() {
+export function RoomShowcase({ illustrations = {} }: { illustrations?: Record<string, string> }) {
   const { ids } = useRecentlyViewed();
   const recentRooms = rooms.filter((r) => ids.includes(r.id));
   const photographed = rooms.filter(hasPhoto);
@@ -50,7 +50,7 @@ export function RoomShowcase() {
               className={`w-[82vw] max-w-sm shrink-0 snap-center sm:w-auto sm:max-w-none ${i % 3 === 1 ? "lg:translate-y-14" : ""}`}
             >
               <Reveal delay={(i % 3) * 0.08} className="h-full">
-                <RoomCard room={room} index={i} />
+                <RoomCard room={room} index={i} illustration={illustrations[room.id]} />
               </Reveal>
             </div>
           ))}
