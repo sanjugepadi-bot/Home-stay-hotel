@@ -16,23 +16,23 @@
  */
 export const countdown = {
   /** Master switch. Keep false until the owner confirms the offer + date. */
-  enabled: false,
+  enabled: true, // DEMO-PREVIEW-ONLY: revert to false
 
   /** Expiry moment — ISO 8601 with timezone. Empty = never active. */
-  targetDate: "",
+  targetDate: "2026-11-16T00:00:00+05:30", // DEMO-PREVIEW-ONLY test date
 
   /** Small label above the headline, e.g. "Limited-time offer" (owner-approved). */
-  eyebrow: "",
+  eyebrow: "DEMO PREVIEW", // DEMO-PREVIEW-ONLY
 
   /** Owner-approved headline. Required for the banner to show. */
-  headline: "",
+  headline: "DEMO ONLY - sample countdown, not a real offer", // DEMO-PREVIEW-ONLY
 
   /** Owner-approved supporting text. Optional. */
-  description: "",
+  description: "Temporary preview content. No offer, discount or price is being advertised.", // DEMO-PREVIEW-ONLY
 
   /** Optional call-to-action button. */
-  ctaLabel: "",
-  ctaHref: "",
+  ctaLabel: "Demo button", // DEMO-PREVIEW-ONLY
+  ctaHref: "/#book",
 
   /** What to do after the deadline: "hide" or "message". */
   expiredBehavior: "hide" as "hide" | "message",
