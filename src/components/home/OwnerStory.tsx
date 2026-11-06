@@ -16,12 +16,12 @@ export function OwnerStory() {
           <SmartImage
             icon="Home"
             seed={2}
-            aspect="aspect-[4/3]"
-            className="w-full"
-            label="The Blue Room"
-            src={photos.blueRoom1}
-            alt={`The Blue Room at ${site.name}, with blue walls, a large wall clock and a white iron table`}
-            sizes="(min-width: 1024px) 50vw, 100vw"
+            aspect="aspect-[4/5]"
+            className="mx-auto w-full max-w-[30rem]"
+            label="The Red Room"
+            src={photos.redWide}
+            alt={`The Red Room at ${site.name}, with a neon sign, red illustrated portraits on the wall and a bed`}
+            sizes="(min-width: 1024px) 480px, 92vw"
           />
         </Reveal>
         <Reveal delay={0.1}>
