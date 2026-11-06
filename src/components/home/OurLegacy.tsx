@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowRight, Award, CalendarClock, HeartHandshake, Landmark } from "lucide-react";
+import { ArrowRight, Award, CalendarClock, HeartHandshake, Landmark, Sparkles } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { Reveal } from "@/components/ui/Reveal";
 import { Tilt3D } from "@/components/ui/Tilt3D";
@@ -8,6 +8,7 @@ import { LegacyPortal } from "./LegacyPortal";
 import { legacy } from "@/data/legacy";
 import { rooms, roomCover, roomHasPage, roomPath, type Room } from "@/data/rooms";
 import { photos } from "@/lib/photos";
+import { getShowcaseImages, type ShowcaseId } from "@/lib/showcase";
 import { formatINR } from "@/lib/utils";
 
 const pillars = [
@@ -34,28 +35,63 @@ const pillars = [
 ];
 
 /** The room, with the photograph chosen as its cover (owner's own photo). */
-function featured(roomId: string) {
+function featured(roomId: string, illustration?: string) {
   const room = rooms.find((r) => r.id === roomId);
   const photo = room ? roomCover(room) : undefined;
-  return room && photo ? { room, src: photos[photo.photoKey], alt: photo.alt } : null;
+  return room && photo ? { room, src: photos[photo.photoKey], alt: photo.alt, illustration } : null;
 }
 
-function RoomFeature({ room, src, alt }: { room: Room; src: (typeof photos)[keyof typeof photos]; alt: string }) {
+function RoomFeature({
+  room,
+  src,
+  alt,
+  illustration,
+  landscape,
+}: {
+  room: Room;
+  src: (typeof photos)[keyof typeof photos];
+  alt: string;
+  /** Path of an AI-generated, illustrative showcase image (1920x1080). When set it replaces the owner photo on this card only. */
+  illustration?: string;
+  /** True when all three rooms use matching landscape illustrations. */
+  landscape?: boolean;
+}) {
   const href = roomHasPage(room) ? roomPath(room) : null;
   const image = (
     <Tilt3D className="group/img relative">
-      <div className="relative aspect-[4/5] overflow-hidden rounded-[2rem] shadow-[0_30px_60px_-20px_rgba(0,0,0,0.65),0_0_0_1px_rgba(224,191,118,0.28)]">
-        <Image
-          src={src}
-          alt={alt}
-          fill
-          sizes="(min-width: 1536px) 480px, (min-width: 1024px) 31vw, (min-width: 640px) 46vw, 92vw"
-          quality={90}
-          placeholder="blur"
-          className="object-cover transition-transform duration-[1100ms] ease-out group-hover/img:scale-[1.05]"
-        />
+      <div
+        className={`relative overflow-hidden rounded-[2rem] bg-forest-light shadow-[0_30px_60px_-20px_rgba(0,0,0,0.65),0_0_0_1px_rgba(224,191,118,0.28)] ${landscape ? "aspect-[4/3]" : "aspect-[4/5]"}`}
+      >
+        {illustration ? (
+          <Image
+            src={illustration}
+            alt={`AI illustration of the ${room.name} theme — not a photograph of the actual room`}
+            fill
+            sizes="(min-width: 1536px) 480px, (min-width: 1024px) 31vw, (min-width: 640px) 46vw, 92vw"
+            quality={90}
+            className="object-cover transition-transform duration-[1100ms] ease-out group-hover/img:scale-[1.05]"
+          />
+        ) : (
+          <Image
+            src={src}
+            alt={alt}
+            fill
+            sizes="(min-width: 1536px) 480px, (min-width: 1024px) 31vw, (min-width: 640px) 46vw, 92vw"
+            quality={90}
+            placeholder="blur"
+            className="object-cover transition-transform duration-[1100ms] ease-out group-hover/img:scale-[1.05]"
+          />
+        )}
         <div aria-hidden className="pointer-events-none absolute inset-0 bg-[linear-gradient(160deg,rgba(255,240,200,0.14),transparent_40%)]" />
         <div aria-hidden className="room-glare pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover/img:opacity-100" />
+        {illustration && (
+          <span
+            title="AI-generated illustration — not a photograph of the actual room. Real photographs are on the room page."
+            className="pointer-events-none absolute bottom-3.5 left-3.5 inline-flex items-center gap-1.5 rounded-full bg-black/55 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.14em] text-white/90 backdrop-blur-sm"
+          >
+            <Sparkles className="h-3 w-3 text-gold-light" aria-hidden /> AI Illustration
+          </span>
+        )}
       </div>
     </Tilt3D>
   );
@@ -121,7 +157,10 @@ function RoomFeature({ room, src, alt }: { room: Room; src: (typeof photos)[keyo
 }
 
 export function OurLegacy() {
-  const tiles = ["gold", "blue", "black"].map(featured).filter((t): t is NonNullable<ReturnType<typeof featured>> => t !== null);
+  // Illustrative AI images replace the owner photo on a card only where a file exists (see src/lib/showcase.ts).
+  const showcase = getShowcaseImages();
+  const landscape = (["gold", "blue", "black"] as ShowcaseId[]).every((id) => Boolean(showcase[id]));
+  const tiles = (["gold", "blue", "black"] as ShowcaseId[]).map((id) => featured(id, showcase[id])).filter((t): t is NonNullable<ReturnType<typeof featured>> => t !== null);
 
   return (
     <section
@@ -163,7 +202,7 @@ export function OurLegacy() {
           <div className="mt-24 grid gap-14 sm:grid-cols-2 lg:mt-28 lg:grid-cols-3 lg:gap-10 xl:gap-14">
             {tiles.map((t, i) => (
               <Reveal key={t.room.id} delay={i * 0.08} className="h-full">
-                <RoomFeature room={t.room} src={t.src} alt={t.alt} />
+                <RoomFeature room={t.room} src={t.src} alt={t.alt} illustration={t.illustration} landscape={landscape} />
               </Reveal>
             ))}
           </div>
