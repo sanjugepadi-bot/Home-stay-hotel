@@ -4,8 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { ArrowRight, Hourglass } from "lucide-react";
 import { Container } from "@/components/ui/Container";
-import { countdown, countdownIsConfigured } from "@/data/countdown";
-import { cn } from "@/lib/utils";
+import { countdown, nextCountdownEvent } from "@/data/countdown";
 
 function parts(msLeft: number) {
   const total = Math.max(0, Math.floor(msLeft / 1000));
@@ -41,23 +40,23 @@ function Unit({ value, label }: { value: string; label: string }) {
  * src/data/countdown.ts. It counts down to a fixed date and never resets itself.
  */
 export function CountdownBanner() {
-  const configured = countdownIsConfigured();
-  const target = Date.parse(countdown.targetDate);
   const [now, setNow] = useState<number | null>(null);
 
   useEffect(() => {
-    if (!configured) return;
+    if (!countdown.enabled) return;
     const tick = () => setNow(Date.now());
     tick();
     const id = window.setInterval(tick, 1000);
     return () => window.clearInterval(id);
-  }, [configured]);
+  }, []);
 
-  if (!configured) return null;
+  if (!countdown.enabled || countdown.events.length === 0) return null;
 
-  const expired = now !== null && now >= target;
-  if (expired && (countdown.expiredBehavior === "hide" || !countdown.expiredMessage.trim())) return null;
+  // Before hydration we show the first listed event (deterministic); afterwards the first one that is still ahead.
+  const event = now === null ? countdown.events[0] : nextCountdownEvent(now);
+  if (!event) return null;
 
+  const target = Date.parse(event.date);
   const left = now === null ? null : parts(target - now);
   const show = (n: number | undefined, width = 2) => (n === undefined ? "–".repeat(width) : pad(n));
 
@@ -68,46 +67,37 @@ export function CountdownBanner() {
       <div aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-[#e8c872]/50 to-transparent" />
 
       <Container className="max-w-6xl">
-        <div className={cn("grid items-center gap-9", !expired && "lg:grid-cols-[1fr_1.1fr] lg:gap-14")}>
-          <div className={cn(expired && "mx-auto max-w-2xl text-center")}>
-            {countdown.eyebrow && (
-              <span className="inline-flex items-center gap-2.5 text-xs font-bold uppercase tracking-[0.24em] text-[#e8c872] sm:text-sm">
-                <Hourglass className="h-4 w-4" aria-hidden /> {countdown.eyebrow}
-              </span>
-            )}
+        <div className="grid items-center gap-9 lg:grid-cols-[1fr_1.1fr] lg:gap-14">
+          <div>
+            <span className="inline-flex items-center gap-2.5 text-xs font-bold uppercase tracking-[0.24em] text-[#e8c872] sm:text-sm">
+              <Hourglass className="h-4 w-4" aria-hidden /> {countdown.eyebrow}
+            </span>
             <h2 id="countdown-heading" className="mt-3 font-display text-[clamp(1.6rem,1.1rem+1.8vw,2.6rem)] font-medium leading-tight text-white">
-              {countdown.headline}
+              {event.name}
             </h2>
-            {expired ? (
-              <p className="mt-4 text-lg leading-relaxed text-[#e6e0d2]">{countdown.expiredMessage}</p>
-            ) : (
-              <>
-                {countdown.description && <p className="mt-4 max-w-xl text-base leading-relaxed text-[#e6e0d2] sm:text-lg">{countdown.description}</p>}
-                {countdown.ctaLabel && countdown.ctaHref && (
-                  <Link
-                    href={countdown.ctaHref}
-                    className="group mt-6 inline-flex min-h-12 items-center gap-2 rounded-full px-7 text-base font-bold text-[#2a1b04] [background:linear-gradient(135deg,#ffe9a8,#f0c04a_55%,#c58a1c)] shadow-[inset_0_2px_0_rgba(255,255,255,0.55),0_4px_0_#4a3510,0_16px_26px_-10px_rgba(0,0,0,0.7)] transition-all duration-300 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-white/70"
-                  >
-                    {countdown.ctaLabel}
-                    <ArrowRight className="h-4.5 w-4.5 transition-transform duration-300 group-hover:translate-x-1" aria-hidden />
-                  </Link>
-                )}
-              </>
+            <p className="mt-3 text-sm font-semibold uppercase tracking-[0.14em] text-[#e8c872]/90 sm:text-base">{event.note}</p>
+            {countdown.invite && <p className="mt-4 max-w-xl text-base leading-relaxed text-[#e6e0d2] sm:text-lg">{countdown.invite}</p>}
+            {countdown.ctaLabel && countdown.ctaHref && (
+              <Link
+                href={countdown.ctaHref}
+                className="group mt-6 inline-flex min-h-12 items-center gap-2 rounded-full px-7 text-base font-bold text-[#2a1b04] [background:linear-gradient(135deg,#ffe9a8,#f0c04a_55%,#c58a1c)] shadow-[inset_0_2px_0_rgba(255,255,255,0.55),0_4px_0_#4a3510,0_16px_26px_-10px_rgba(0,0,0,0.7)] transition-all duration-300 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-white/70"
+              >
+                {countdown.ctaLabel}
+                <ArrowRight className="h-4.5 w-4.5 transition-transform duration-300 group-hover:translate-x-1" aria-hidden />
+              </Link>
             )}
           </div>
 
-          {!expired && (
-            <div
-              role="timer"
-              aria-label={left ? `${left.days} days, ${left.hours} hours, ${left.minutes} minutes and ${left.seconds} seconds remaining` : "Countdown"}
-              className="grid grid-cols-4 gap-2.5 sm:gap-4"
-            >
-              <Unit value={show(left?.days)} label="Days" />
-              <Unit value={show(left?.hours)} label="Hours" />
-              <Unit value={show(left?.minutes)} label="Minutes" />
-              <Unit value={show(left?.seconds)} label="Seconds" />
-            </div>
-          )}
+          <div
+            role="timer"
+            aria-label={left ? `${left.days} days, ${left.hours} hours, ${left.minutes} minutes and ${left.seconds} seconds until ${event.name}` : "Countdown"}
+            className="grid grid-cols-4 gap-2.5 sm:gap-4"
+          >
+            <Unit value={show(left?.days)} label="Days" />
+            <Unit value={show(left?.hours)} label="Hours" />
+            <Unit value={show(left?.minutes)} label="Minutes" />
+            <Unit value={show(left?.seconds)} label="Seconds" />
+          </div>
         </div>
       </Container>
     </section>
