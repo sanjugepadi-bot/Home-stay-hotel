@@ -65,7 +65,7 @@ export const rooms: Room[] = [
     name: "The Blue Room",
     description:
       "This room with large windows and tea garden facing balcony is ideal for 4 guests & dotted with craftworks from the Indonesian island of Bali.",
-    price: 4000,
+    price: 5000,
     includes: "Breakfast included",
     highlights: ["Ideal for 4 guests", "Tea garden balcony", "Large windows", "Bali craftworks"],
     bestFor: "Small groups and families — the owners describe it as ideal for 4 guests.",
