@@ -35,11 +35,11 @@ export type Review = {
 
 export const reviewsConfig = {
   /**
-   * The VERIFIED Google Business Profile reviews link (e.g. the "Read reviews" / "g.page/r/…" URL).
-   * Leave empty until confirmed with the owner — the "Read More Reviews on Google" button only appears
-   * once this is filled in.
+   * The owner-authorised Google reviews link. The "Read Guest Reviews on Google" button only appears
+   * while this is filled in.
    */
-  googleReviewsUrl: "",
+  googleReviewsUrl:
+    "https://www.google.com/travel/hotels/entity/CgoInfWA9buiut9oEAE/reviews?q=homestay%20by%20tea%20garden&g2lb=4965990%2C72471280%2C72573224%2C72686036%2C72803964%2C72882230%2C73064764%2C121529350%2C121608706%2C121738283%2C121921501%2C121951222%2C122078727%2C122093076%2C122097177%2C122121968%2C122147524%2C122201283&hl=en-IN&gl=in&cs=1&ssta=1&ts=CAEaSQorEicyJTB4Mzc0MDk5MjJjMmU2YjMxZjoweDY4YmVlOTEzYmVhMDNhOWQaABIaEhQKBwjqDxALGAgSBwjqDxALGAkYATICEAAqCQoFOgNJTlIaAA&qs=CAE4AkIJCZ06oL4T6b5o&ap=MAA&ictx=111&utm_campaign=sharing&utm_medium=link&utm_source=htls",
 };
 
 // Add real guest reviews here.

@@ -137,9 +137,9 @@ export function Reviews() {
               href={googleUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className={cn(buttonVariants({ variant: "forest", size: "lg" }), "min-h-14 px-8")}
+              className={cn(buttonVariants({ variant: "forest", size: "lg" }), "min-h-14 px-6 text-base sm:px-9 sm:text-lg shadow-[0_18px_30px_-12px_rgba(31,59,44,0.6)]")}
             >
-              Read More Reviews on Google <ExternalLink className="h-4.5 w-4.5" aria-hidden />
+              Read Guest Reviews on Google <ExternalLink className="h-4.5 w-4.5" aria-hidden />
             </a>
           )}
           <a
