@@ -150,3 +150,33 @@ p {
     height: 0;
   }
 }
+
+/* Room showcase: champagne "gallery stage" with soft gold light (theme-aware, no JS) */
+.rooms-stage {
+  background:
+    radial-gradient(60rem 28rem at 85% -5%, rgba(201, 162, 75, 0.22), transparent 65%),
+    radial-gradient(46rem 26rem at 5% 40%, rgba(47, 87, 65, 0.10), transparent 65%),
+    linear-gradient(180deg, #f8f1e2 0%, #efe3cb 52%, #f6eddb 100%);
+}
+.dark .rooms-stage {
+  background:
+    radial-gradient(60rem 28rem at 85% -5%, rgba(215, 181, 103, 0.14), transparent 65%),
+    radial-gradient(46rem 26rem at 5% 40%, rgba(77, 134, 100, 0.12), transparent 65%),
+    linear-gradient(180deg, #12190f 0%, #161e14 52%, #10160f 100%);
+}
+.room-card-3d {
+  transform: perspective(1000px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+  transform-style: preserve-3d;
+  transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.5s;
+}
+.room-card-3d[data-tilting="true"] {
+  transition: transform 0.12s linear, box-shadow 0.5s;
+}
+.room-glare {
+  background: radial-gradient(22rem circle at var(--mx, 50%) var(--my, 30%), rgba(255, 244, 214, 0.38), transparent 55%);
+}
+.hide-scrollbar { scrollbar-width: none; }
+.hide-scrollbar::-webkit-scrollbar { display: none; }
+@media (prefers-reduced-motion: reduce) {
+  .room-card-3d { transform: none !important; transition: none; }
+}
