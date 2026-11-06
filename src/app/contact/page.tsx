@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Mail, MapPin, Phone } from "lucide-react";
+import { Mail, MapPin, Navigation, Phone, Plane, Train } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { BookingForm } from "@/components/booking/BookingForm";
 import { site, phoneHref } from "@/data/site";
+import { directionsUrl, locationInfo } from "@/data/location";
 import { buildMetadata } from "@/lib/seo";
 import { contactPageJsonLd } from "@/lib/structured-data";
 
@@ -51,6 +52,29 @@ export default function ContactPage() {
               <MapPin className="mt-0.5 h-5 w-5 shrink-0 text-gold-deep" />
               <p className="text-sm leading-relaxed text-muted-foreground">{site.location.address}</p>
             </div>
+            <section aria-labelledby="getting-here" className="rounded-xl border border-border bg-card p-5 shadow-[0_2px_10px_-2px_rgba(0,0,0,0.06)]">
+              <h2 id="getting-here" className="font-display text-xl text-foreground">Getting to us in Seujpur</h2>
+              <ul className="mt-4 space-y-3">
+                {locationInfo.travel.map((t) => (
+                  <li key={t.id} className="flex items-start gap-3">
+                    <span className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-gold/15 text-gold-deep">
+                      {t.id === "airport" ? <Plane className="h-4.5 w-4.5" aria-hidden /> : <Train className="h-4.5 w-4.5" aria-hidden />}
+                    </span>
+                    <p className="text-sm leading-relaxed text-muted-foreground">
+                      <span className="font-semibold text-foreground">{t.time}</span> from {t.place}
+                    </p>
+                  </li>
+                ))}
+              </ul>
+              <div className="mt-4 flex flex-wrap items-center gap-x-5 gap-y-1 text-sm">
+                <a href={directionsUrl} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 items-center gap-1.5 font-semibold text-gold-deep underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold">
+                  <Navigation className="h-4 w-4" aria-hidden /> Get directions
+                </a>
+                <Link href="/#location" className="inline-flex min-h-11 items-center font-semibold text-gold-deep underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold">
+                  About our location →
+                </Link>
+              </div>
+            </section>
             {site.phones.map((phone) => (
               <a
                 key={phone}

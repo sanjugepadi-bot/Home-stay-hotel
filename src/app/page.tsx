@@ -15,6 +15,7 @@ import { Amenities } from "@/components/home/Amenities";
 import { Reviews } from "@/components/home/Reviews";
 import { OwnerStory } from "@/components/home/OwnerStory";
 import { NearbyAttractions } from "@/components/home/NearbyAttractions";
+import { LocationSection } from "@/components/home/LocationSection";
 import { FAQ } from "@/components/home/FAQ";
 import { BookingCTA } from "@/components/home/BookingCTA";
 
@@ -40,6 +41,7 @@ export default function Home() {
       <Amenities />
       <Reviews />
       <OwnerStory />
+      <LocationSection />
       <NearbyAttractions />
       <FAQ />
       <BookingCTA />
