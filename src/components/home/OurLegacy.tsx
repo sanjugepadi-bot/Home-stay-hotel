@@ -82,7 +82,7 @@ function RoomFeature({
               src={illustration}
               alt={`AI illustration of the ${room.name} theme — not a photograph of the actual room`}
               fill
-              sizes="(min-width: 1536px) 480px, (min-width: 1024px) 31vw, (min-width: 640px) 46vw, 92vw"
+              sizes="(min-width: 1280px) 360px, (min-width: 1024px) 31vw, (min-width: 640px) 46vw, 92vw"
               quality={90}
               className="object-cover transition-transform duration-[1100ms] ease-out group-hover/img:scale-[1.06]"
             />
@@ -91,7 +91,7 @@ function RoomFeature({
               src={src}
               alt={alt}
               fill
-              sizes="(min-width: 1536px) 480px, (min-width: 1024px) 31vw, (min-width: 640px) 46vw, 92vw"
+              sizes="(min-width: 1280px) 360px, (min-width: 1024px) 31vw, (min-width: 640px) 46vw, 92vw"
               quality={90}
               placeholder="blur"
               className="object-cover transition-transform duration-[1100ms] ease-out group-hover/img:scale-[1.06]"
@@ -136,7 +136,7 @@ function RoomFeature({
             <span aria-hidden className="h-3 w-3 rounded-full ring-2 ring-white/90 shadow-[0_0_14px_var(--glow)]" style={{ backgroundColor: room.accent }} />
             Room
           </span>
-          <h3 className="pop-1 mt-2 font-display text-[clamp(1.9rem,1.5rem+1vw,2.6rem)] font-medium leading-tight text-white drop-shadow-[0_4px_14px_rgba(0,0,0,0.5)]">
+          <h3 className="pop-1 mt-2 font-display text-[clamp(1.75rem,1.4rem+0.8vw,2.2rem)] font-medium leading-tight text-white drop-shadow-[0_4px_14px_rgba(0,0,0,0.5)]">
             {href ? (
               <Link href={href} className="underline-offset-[7px] decoration-[color:var(--c2)] decoration-2 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white">
                 {room.name}
@@ -254,7 +254,7 @@ export function OurLegacy() {
 
         {/* Room showcase */}
         {tiles.length > 0 && (
-          <div className="mt-24 grid gap-14 sm:grid-cols-2 lg:mt-28 lg:grid-cols-3 lg:gap-10 xl:gap-14">
+          <div className="mx-auto mt-24 grid max-w-[24rem] gap-14 sm:max-w-none sm:grid-cols-2 lg:mt-28 lg:max-w-[74rem] lg:grid-cols-3 lg:gap-10 xl:gap-14">
             {tiles.map((t, i) => (
               <Reveal key={t.room.id} delay={i * 0.08} className="h-full">
                 <RoomFeature room={t.room} src={t.src} alt={t.alt} illustration={t.illustration} />
