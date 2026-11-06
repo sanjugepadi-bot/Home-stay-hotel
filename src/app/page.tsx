@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { buildMetadata, homeTitle } from "@/lib/seo";
 import { site } from "@/data/site";
 import { Hero } from "@/components/home/Hero";
+import { CountdownBanner } from "@/components/home/CountdownBanner";
 import { OurLegacy } from "@/components/home/OurLegacy";
 import { AwardRecognition } from "@/components/home/AwardRecognition";
 import { RoomShowcase } from "@/components/home/RoomShowcase";
@@ -30,6 +31,7 @@ export default function Home() {
   return (
     <>
       <Hero />
+      <CountdownBanner />
       <OurLegacy />
       <AwardRecognition />
       <RoomShowcase illustrations={{ ...(getShowcaseImages().gold ? { gold: getShowcaseImages().gold as string } : {}) }} />

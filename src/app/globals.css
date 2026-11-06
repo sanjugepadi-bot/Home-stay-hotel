@@ -292,3 +292,8 @@ p {
 }
 .pop-1 { transform: translateZ(26px); }
 .pop-2 { transform: translateZ(44px); }
+
+/* Countdown banner: soft fade when a digit changes */
+@keyframes countdown-tick { from { opacity: 0.35; transform: translateY(-4px); } to { opacity: 1; transform: none; } }
+.countdown-tick { animation: countdown-tick 0.35s ease-out both; }
+@media (prefers-reduced-motion: reduce) { .countdown-tick { animation: none; } }
