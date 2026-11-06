@@ -1,10 +1,10 @@
-import Image from "next/image";
 import { MessageCircle, PartyPopper, Sparkles } from "lucide-react";
 import { Reveal } from "@/components/ui/Reveal";
 import { buttonVariants } from "@/components/ui/Button";
 import { partyRoom } from "@/data/party-room";
 import { site, whatsappLink } from "@/data/site";
 import { cn } from "@/lib/utils";
+import { PartyRoomPhotos } from "./PartyRoomPhotos";
 
 /**
  * The separate Party Room — deliberately styled differently from the guest-room cards (midnight + gold
@@ -12,7 +12,7 @@ import { cn } from "@/lib/utils";
  */
 export function PartyRoomCard({ className }: { className?: string }) {
   const hasDetails = Boolean(partyRoom.description || partyRoom.capacity || partyRoom.rate || partyRoom.facilities.length);
-  const photo = partyRoom.photos[0];
+  const hasPhotos = partyRoom.photos.length > 0;
 
   return (
     <Reveal className={className}>
@@ -23,7 +23,7 @@ export function PartyRoomCard({ className }: { className?: string }) {
         <div aria-hidden className="pointer-events-none absolute -right-16 -top-16 -z-10 h-64 w-64 rounded-full border border-gold/25" />
         <div aria-hidden className="pointer-events-none absolute -right-6 -top-6 -z-10 h-40 w-40 rounded-full border border-gold/20" />
 
-        <div className={cn("grid items-center gap-8", photo && "lg:grid-cols-[1.1fr_0.9fr] lg:gap-12")}>
+        <div className={cn("grid items-center gap-8", hasPhotos && "lg:grid-cols-[1.05fr_0.95fr] lg:gap-14")}>
           <div>
             <span className="inline-flex items-center gap-2.5 text-xs font-bold uppercase tracking-[0.22em] text-gold-light sm:text-sm">
               <PartyPopper className="h-4.5 w-4.5" aria-hidden /> Also at the homestay
@@ -54,8 +54,9 @@ export function PartyRoomCard({ className }: { className?: string }) {
               <p className="mt-6 flex max-w-2xl items-start gap-3 rounded-2xl border border-dashed border-gold/45 bg-white/[0.04] p-4 text-[0.97rem] leading-relaxed text-beige-light/90 sm:p-5">
                 <Sparkles className="mt-1 h-4.5 w-4.5 shrink-0 text-gold-light" aria-hidden />
                 <span>
-                  The homestay also has a separate Party Room. Photographs, capacity, facilities and rates are being
-                  confirmed with the owner — please ask the host for details.
+                  {hasPhotos
+                    ? "Capacity, facilities and rates for the Party Room are being confirmed with the owner — please ask the host for details."
+                    : "The homestay also has a separate Party Room. Photographs, capacity, facilities and rates are being confirmed with the owner — please ask the host for details."}
                 </span>
               </p>
             )}
@@ -70,11 +71,7 @@ export function PartyRoomCard({ className }: { className?: string }) {
             </a>
           </div>
 
-          {photo && (
-            <div className="relative aspect-[4/3] overflow-hidden rounded-3xl ring-1 ring-gold/30">
-              <Image src={photo.src} alt={photo.alt} fill sizes="(min-width: 1024px) 40vw, 92vw" quality={90} className="object-cover" />
-            </div>
-          )}
+          {hasPhotos && <PartyRoomPhotos photos={partyRoom.photos} />}
         </div>
       </article>
     </Reveal>
