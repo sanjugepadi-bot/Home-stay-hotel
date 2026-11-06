@@ -46,21 +46,18 @@ function RoomFeature({
   src,
   alt,
   illustration,
-  landscape,
 }: {
   room: Room;
   src: (typeof photos)[keyof typeof photos];
   alt: string;
   /** Path of an AI-generated, illustrative showcase image (1920x1080). When set it replaces the owner photo on this card only. */
   illustration?: string;
-  /** True when all three rooms use matching landscape illustrations. */
-  landscape?: boolean;
 }) {
   const href = roomHasPage(room) ? roomPath(room) : null;
   const image = (
     <Tilt3D className="group/img relative">
       <div
-        className={`relative overflow-hidden rounded-[2rem] bg-forest-light shadow-[0_30px_60px_-20px_rgba(0,0,0,0.65),0_0_0_1px_rgba(224,191,118,0.28)] ${landscape ? "aspect-[4/3]" : "aspect-[4/5]"}`}
+        className={`relative overflow-hidden rounded-[2rem] bg-forest-light shadow-[0_30px_60px_-20px_rgba(0,0,0,0.65),0_0_0_1px_rgba(224,191,118,0.28)] aspect-[4/5]`}
       >
         {illustration ? (
           <Image
@@ -159,7 +156,6 @@ function RoomFeature({
 export function OurLegacy() {
   // Illustrative AI images replace the owner photo on a card only where a file exists (see src/lib/showcase.ts).
   const showcase = getShowcaseImages();
-  const landscape = (["gold", "blue", "black"] as ShowcaseId[]).every((id) => Boolean(showcase[id]));
   const tiles = (["gold", "blue", "black"] as ShowcaseId[]).map((id) => featured(id, showcase[id])).filter((t): t is NonNullable<ReturnType<typeof featured>> => t !== null);
 
   return (
@@ -202,7 +198,7 @@ export function OurLegacy() {
           <div className="mt-24 grid gap-14 sm:grid-cols-2 lg:mt-28 lg:grid-cols-3 lg:gap-10 xl:gap-14">
             {tiles.map((t, i) => (
               <Reveal key={t.room.id} delay={i * 0.08} className="h-full">
-                <RoomFeature room={t.room} src={t.src} alt={t.alt} illustration={t.illustration} landscape={landscape} />
+                <RoomFeature room={t.room} src={t.src} alt={t.alt} illustration={t.illustration} />
               </Reveal>
             ))}
           </div>

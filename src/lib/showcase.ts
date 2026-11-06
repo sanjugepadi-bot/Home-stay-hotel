@@ -7,8 +7,8 @@ import path from "node:path";
  * Drop a file in public/images/homestay/showcase/ named gold-room.webp, blue-room.webp or black-room.webp
  * — `node scripts/prepare-showcase-image.cjs <file> <gold|blue|black>` prepares it. Nothing else needs editing.
  * Each room that has a file shows it (with an "AI Illustration" label); rooms without one keep the owner's
- * photograph. When all three exist the trio switches to a matching landscape format. The owner's photographs
- * always remain in each room's gallery / room page.
+ * photograph. All three cards share one portrait (4:5) frame, so any mix looks consistent. The owner's
+ * photographs always remain in each room's gallery / room page.
  */
 export const SHOWCASE_IDS = ["gold", "blue", "black"] as const;
 export type ShowcaseId = (typeof SHOWCASE_IDS)[number];
