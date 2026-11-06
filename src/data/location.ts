@@ -1,5 +1,3 @@
-import { site } from "@/data/site";
-
 /**
  * Location content supplied by the owner — wording, place names and travel times are kept exactly as given.
  * Shown in full on the homepage ("Find us"); the Contact page only shows the travel times and directions,
@@ -16,5 +14,5 @@ export const locationInfo = {
   ],
 };
 
-/** Opens Google Maps searching for the owner's address (no coordinates are assumed). */
-export const directionsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(site.location.address)}`;
+/** The homestay's own Google Maps link, supplied by the owner/client. */
+export const directionsUrl = "https://maps.app.goo.gl/iTna2jX6LqC5KHnV9";

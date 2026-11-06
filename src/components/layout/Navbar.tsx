@@ -24,6 +24,7 @@ const links = [
   { href: "#gallery", label: "Gallery" },
   ...(reviews.length ? [{ href: "#reviews", label: "Reviews" }] : []),
   ...(attractions.length ? [{ href: "#nearby", label: "Nearby" }] : []),
+  { href: "#location", label: "Location" },
   { href: "#faq", label: "FAQ" },
 ];
 

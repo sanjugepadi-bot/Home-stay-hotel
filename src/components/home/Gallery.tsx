@@ -21,18 +21,22 @@ const tabs = [
   { id: "kitchen", label: "Kitchen" },
 ];
 
+// Removed from this homepage gallery only (client request). The photo remains in the Gold Room's own gallery / room page.
+const REMOVED_FROM_HOME_GALLERY = new Set(["gold-room-gilded-bed"]);
+const homeGallery = gallery.filter((g) => !REMOVED_FROM_HOME_GALLERY.has(g.id));
+
 function filterItems(filter: string) {
   switch (filter) {
     case "all":
-      return gallery.filter((g) => !g.extra);
+      return homeGallery.filter((g) => !g.extra);
     case "rooms":
-      return gallery.filter((g) => g.tag === "Rooms" && !g.extra);
+      return homeGallery.filter((g) => g.tag === "Rooms" && !g.extra);
     case "bathroom":
-      return gallery.filter((g) => g.tag === "Bathroom");
+      return homeGallery.filter((g) => g.tag === "Bathroom");
     case "kitchen":
-      return gallery.filter((g) => g.tag === "Kitchen");
+      return homeGallery.filter((g) => g.tag === "Kitchen");
     default:
-      return gallery.filter((g) => g.room === filter);
+      return homeGallery.filter((g) => g.room === filter);
   }
 }
 
