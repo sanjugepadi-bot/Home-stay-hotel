@@ -73,7 +73,7 @@ export const legacy = {
       year: "",
       title: "Themed rooms by the tea garden",
       // The room counts are filled in from the rooms data ({total} = all rooms, {themed} = themed rooms).
-      text: "{total} rooms in Seujpur, Dibrugarh — including {themed} individually themed rooms: Gold, White, Green, Blue, Black, Yellow, Pink and Red — plus a separate Party Room.",
+      text: "{total} rooms in Seujpur, Dibrugarh: {themed} individually themed guest rooms — Gold, White, Green, Blue, Black, Yellow, Pink and Red — and a separate Party Room.",
     },
   ],
 };

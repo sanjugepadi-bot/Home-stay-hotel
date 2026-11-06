@@ -173,12 +173,11 @@ export function getRoomBySlug(slug: string) {
   return roomsWithPages.find((r) => roomSlug(r) === slug);
 }
 
-/** OWNER-CONFIRMED: the property has 9 rooms in total. Only the eight themed rooms below have owner-supplied
- * details so far — the remaining room's name, theme, rate and photographs are still to be provided. */
+/** OWNER-CONFIRMED: 9 rooms in total = the 8 individually themed guest rooms listed above + 1 separate Party Room. */
 export const TOTAL_ROOMS = 9;
 
-/** "9 rooms, including 8 individually themed rooms" — used wherever a total is quoted. */
-export const roomCountPhrase = `${TOTAL_ROOMS} rooms, including ${rooms.length} individually themed rooms`;
+/** "9 rooms in total: 8 individually themed guest rooms and a separate Party Room" — used wherever a total is quoted. */
+export const roomCountPhrase = `${TOTAL_ROOMS} rooms in total: ${rooms.length} individually themed guest rooms and a separate Party Room`;
 
 export const lowestRoomPrice = Math.min(...rooms.map((r) => r.price));
 export const highestRoomPrice = Math.max(...rooms.map((r) => r.price));

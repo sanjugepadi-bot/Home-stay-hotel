@@ -4,7 +4,7 @@ import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Reveal } from "@/components/ui/Reveal";
 import { Card } from "@/components/ui/Card";
 import { buttonVariants } from "@/components/ui/Button";
-import { roomCountPhrase } from "@/data/rooms";
+import { rooms, TOTAL_ROOMS } from "@/data/rooms";
 
 const features = [
   {
@@ -20,7 +20,7 @@ const features = [
   {
     icon: Palette,
     title: "Unique Themed Rooms",
-    text: `${roomCountPhrase}, each with its own colour and character.`,
+    text: `${rooms.length} individually themed guest rooms, each with its own colour and character — plus a separate Party Room, ${TOTAL_ROOMS} rooms in total.`,
   },
   {
     icon: HeartHandshake,

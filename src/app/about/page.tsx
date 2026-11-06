@@ -63,8 +63,8 @@ export default function AboutPage() {
                   Rooms with their own character
                 </h2>
                 <p className="mt-4 leading-relaxed text-muted-foreground">
-                  The homestay has {roomCountPhrase}, each styled around a colour, and a separate Party Room.
-                  This is what each of the themed rooms is known for:
+                  The homestay has {roomCountPhrase}. Each guest room is styled around a colour — this is what each
+                  one is known for:
                 </p>
                 <ul className="mt-5 divide-y divide-border rounded-2xl border border-border bg-card">
                   {rooms.map((r) => (
@@ -133,7 +133,7 @@ export default function AboutPage() {
               </div>
               <div>
                 <dt className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Rooms</dt>
-                <dd className="mt-1 text-foreground">{roomCountPhrase}, plus a separate Party Room</dd>
+                <dd className="mt-1 text-foreground">{roomCountPhrase}</dd>
               </div>
               <div>
                 <dt className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Room rates</dt>

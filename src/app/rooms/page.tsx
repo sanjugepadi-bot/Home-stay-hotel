@@ -20,7 +20,7 @@ const title = "Rooms & Rates | Accommodation in Dibrugarh | Tea Garden Homestay"
 export const metadata: Metadata = buildMetadata({
   title: { absolute: title },
   socialTitle: title,
-  description: `${roomCountPhrase} in Dibrugarh, Assam — ${nameList}, plus a separate Party Room. See room rates, what's included and photographs.`,
+  description: `${roomCountPhrase} in Dibrugarh, Assam — guest rooms: ${nameList}. See room rates, what's included and photographs.`,
   path: "/rooms",
 });
 
@@ -72,7 +72,7 @@ export default function RoomsPage() {
             as="h1"
             eyebrow="Rooms & Rates"
             title="Themed accommodation in Dibrugarh"
-            description={`${roomCountPhrase} at ${site.name}, Seujpur — each with its own colour and character — plus a separate Party Room. Looking for places to stay in Dibrugarh for a family trip, a couple's getaway or a budget stay? Start here.`}
+            description={`${roomCountPhrase} at ${site.name}, Seujpur. Each guest room has its own colour and character. Looking for places to stay in Dibrugarh for a family trip, a couple's getaway or a budget stay? Start here.`}
           />
 
           <section className="mt-16" aria-labelledby="suit-heading">

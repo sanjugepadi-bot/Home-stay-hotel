@@ -10,7 +10,7 @@ import { absoluteUrl } from "@/lib/seo";
  * Structured data (schema.org JSON-LD).
  *
  * RULES — only owner-confirmed facts go in here:
- *   • included: name, address, phones, price range, 9 rooms in total (8 themed rooms described), owner-confirmed
+ *   • included: name, address, phones, price range, 9 rooms in total (8 themed guest rooms + a separate Party Room), owner-confirmed
  *     features, the award *title*, and real property photographs.
  *   • deliberately NOT included (not confirmed): geo coordinates, check-in/out times,
  *     Wi-Fi / parking / AC / pets, ratings or reviews, distances. (The founding year, 2016, is now owner-confirmed and included.)

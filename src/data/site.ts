@@ -29,7 +29,7 @@ export const site = {
   subheadline: "Over a decade of welcoming guests with warmth, unique stays and memorable experiences.",
   // Search-result / social-share description (~150 characters).
   metaDescription:
-    "Award-winning homestay in Dibrugarh, Assam with 10+ years of hospitality and 9 rooms, including eight themed rooms. Unique accommodation in Dibrugarh, by the tea garden.",
+    "Award-winning homestay in Dibrugarh, Assam with 10+ years of hospitality, eight themed guest rooms and a separate Party Room. Unique accommodation in Dibrugarh, by the tea garden.",
   // Used for the page's keyword tags only; the visible copy uses them naturally.
   keywords: [
     "homestay in Dibrugarh",
@@ -40,7 +40,7 @@ export const site = {
     "Seujpur",
   ],
   description:
-    "Homestay by the Tea Garden is a homestay in Seujpur, Dibrugarh, Assam, with 9 rooms, including individually themed rooms — Gold, White, Green, Blue, Black, Yellow, Pink and Red — a separate Party Room and traditional Assamese hospitality.",
+    "Homestay by the Tea Garden is a homestay in Seujpur, Dibrugarh, Assam, with 9 rooms: eight individually themed guest rooms — Gold, White, Green, Blue, Black, Yellow, Pink and Red — and a separate Party Room, with traditional Assamese hospitality.",
   location: {
     label: "Dibrugarh, Assam, India",
     locality: "Dibrugarh",

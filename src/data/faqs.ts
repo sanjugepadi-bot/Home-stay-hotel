@@ -18,7 +18,7 @@ export const faqs: Faq[] = [
   },
   {
     question: "Is it an award-winning homestay?",
-    answer: `Yes — Homestay by the Tea Garden has received a Best Homestay / Best Hospitality award from the Government of Assam. The homestay has ${TOTAL_ROOMS} rooms, including ${rooms.length} individually themed rooms — Gold, White, Green, Blue, Black, Yellow, Pink and Red — and a separate Party Room.`,
+    answer: `Yes — Homestay by the Tea Garden has received a Best Homestay / Best Hospitality award from the Government of Assam. The homestay has ${TOTAL_ROOMS} rooms in total: ${rooms.length} individually themed guest rooms — Gold, White, Green, Blue, Black, Yellow, Pink and Red — and a separate Party Room.`,
   },
   {
     question: "What are the room rates?",

@@ -1,6 +1,6 @@
 /**
- * The Party Room — a SEPARATE space at the homestay (owner-confirmed). It is NOT one of the guest bedrooms
- * and is not counted in the room total.
+ * The Party Room — a SEPARATE space at the homestay (owner-confirmed): the 9th of the property's 9 rooms.
+ * It is NOT one of the 8 guest bedrooms.
  *
  * Only what the owner has confirmed is stated on the website. Everything else is left empty on purpose;
  * the card hides each field until it is filled in, and shows a "details coming soon" notice until then.

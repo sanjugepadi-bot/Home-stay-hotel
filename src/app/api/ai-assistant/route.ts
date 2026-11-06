@@ -20,7 +20,7 @@ function systemPrompt() {
 
 Verified facts about the homestay (the ONLY facts you may state about it):
 ${roomsList}
-- The homestay has ${TOTAL_ROOMS} rooms in total; only the ${rooms.length} rooms above have details available. It also has a separate Party Room (not a guest bedroom) — no details about it (capacity, rates, facilities, photos) are available.
+- The homestay has ${TOTAL_ROOMS} rooms in total: the ${rooms.length} individually themed guest rooms above plus a separate Party Room (not a guest bedroom) — no details about the Party Room (capacity, rates, facilities, photos) are available.
 Contact: ${site.phones.join(" / ")}.
 
 Rules:
