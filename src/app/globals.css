@@ -200,3 +200,57 @@ p {
 @media (prefers-reduced-motion: reduce) {
   .room-panel-in:not([hidden]) { animation: none; }
 }
+
+/* ── Our Legacy: "midnight emerald & champagne" theme (visual only) ─────────────────────────── */
+.legacy-stage {
+  background:
+    radial-gradient(70rem 42rem at 92% 0%, rgba(236, 204, 128, 0.2), transparent 60%),
+    radial-gradient(60rem 44rem at 0% 32%, rgba(30, 128, 112, 0.4), transparent 62%),
+    radial-gradient(52rem 36rem at 70% 100%, rgba(24, 92, 96, 0.34), transparent 62%),
+    linear-gradient(180deg, #041217 0%, #07242a 48%, #041318 100%);
+}
+.legacy-grain {
+  background-image: radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+  background-size: 26px 26px;
+  -webkit-mask-image: linear-gradient(to bottom, transparent, #000 14%, #000 86%, transparent);
+  mask-image: linear-gradient(to bottom, transparent, #000 14%, #000 86%, transparent);
+}
+.gold-text {
+  background: linear-gradient(180deg, #fff3cf 0%, #efd491 45%, #bd9040 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.ivory-text {
+  background: linear-gradient(180deg, #fffaf0 0%, #f4e8c8 62%, #dcbd6c 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.gold-metal {
+  background: linear-gradient(135deg, #fbeab8 0%, #e2c070 38%, #a97b2e 72%, #ecd18f 100%);
+}
+.glass-panel {
+  background: linear-gradient(150deg, rgba(255, 255, 255, 0.11) 0%, rgba(255, 255, 255, 0.03) 55%, rgba(255, 255, 255, 0.05) 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.2),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.25),
+    0 36px 70px -34px rgba(0, 0, 0, 0.85);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
+.legacy-sheen { position: relative; overflow: hidden; }
+.legacy-sheen::after {
+  content: "";
+  position: absolute;
+  inset: -40% auto -40% -60%;
+  width: 40%;
+  transform: skewX(-20deg) translateX(0);
+  background: linear-gradient(90deg, transparent, rgba(255, 240, 200, 0.14), transparent);
+  transition: transform 1.1s ease;
+  pointer-events: none;
+}
+.legacy-sheen:hover::after { transform: skewX(-20deg) translateX(520%); }
+@media (prefers-reduced-motion: reduce) {
+  .legacy-sheen::after { display: none; }
+}
