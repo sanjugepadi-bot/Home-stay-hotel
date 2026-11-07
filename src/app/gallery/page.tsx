@@ -10,13 +10,14 @@ import { gallery } from "@/data/gallery";
 import { site } from "@/data/site";
 import { buildMetadata } from "@/lib/seo";
 import { galleryPageJsonLd } from "@/lib/structured-data";
+import { BusinessJsonLd } from "@/components/seo/BusinessJsonLd";
 
-const title = "Photo Gallery | Themed Rooms in Dibrugarh | Tea Garden Homestay";
+const title = "Photo Gallery | Homestay by the Tea Garden, Dibrugarh";
 
 export const metadata: Metadata = buildMetadata({
   title: { absolute: title },
   socialTitle: title,
-  description: `Photographs of every themed room at ${site.name}, Dibrugarh — plus the bathroom and kitchen. Browse all ${new Set(gallery.map((g) => g.photoKey)).size} photos.`,
+  description: `Real photographs of the themed guest rooms at ${site.name}, Dibrugarh — plus the bathroom and kitchen. Browse all ${new Set(gallery.map((g) => g.photoKey)).size} photos.`,
   path: "/gallery",
 });
 
@@ -27,6 +28,7 @@ export default function GalleryPage() {
 
   return (
     <>
+      <BusinessJsonLd />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(galleryPageJsonLd()) }}

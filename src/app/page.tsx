@@ -19,6 +19,7 @@ import { NearbyAttractions } from "@/components/home/NearbyAttractions";
 import { LocationSection } from "@/components/home/LocationSection";
 import { FAQ } from "@/components/home/FAQ";
 import { BookingCTA } from "@/components/home/BookingCTA";
+import { BusinessJsonLd } from "@/components/seo/BusinessJsonLd";
 
 export const metadata: Metadata = buildMetadata({
   title: { absolute: homeTitle },
@@ -30,6 +31,7 @@ export const metadata: Metadata = buildMetadata({
 export default function Home() {
   return (
     <>
+      <BusinessJsonLd />
       <Hero />
       <CountdownBanner />
       <OurLegacy />

@@ -9,11 +9,19 @@
 // the real site. Setting the variable switches indexing on automatically.
 const configuredUrl = process.env.NEXT_PUBLIC_SITE_URL?.trim().replace(/\/+$/, "");
 const vercelHost = process.env.VERCEL_PROJECT_PRODUCTION_URL;
+// The host of THIS deployment (differs for every preview). Previews use it so their canonical/OG URLs point at
+// themselves instead of at localhost; they stay noindex regardless.
+const vercelDeploymentHost = process.env.VERCEL_URL;
 // Vercel "Preview" deployments (branches / pull requests) must never be indexed, even
 // if the domain variable happens to be set for every environment.
 const isVercelPreview = process.env.VERCEL_ENV === "preview";
 const resolvedUrl =
-  configuredUrl || (vercelHost ? `https://${vercelHost}` : "http://localhost:3000");
+  configuredUrl ||
+  (process.env.VERCEL_ENV === "preview" && vercelDeploymentHost
+    ? `https://${vercelDeploymentHost}`
+    : vercelHost
+      ? `https://${vercelHost}`
+      : "http://localhost:3000");
 
 // Details below come from the owner's brochure / price list. Anything not
 // provided by the owner is left empty and the UI hides it automatically.
@@ -29,7 +37,7 @@ export const site = {
   subheadline: "Over a decade of welcoming guests with warmth, unique stays and memorable experiences.",
   // Search-result / social-share description (~150 characters).
   metaDescription:
-    "Award-winning homestay in Dibrugarh, Assam with 10+ years of hospitality, eight themed guest rooms and a separate Party Room. Unique accommodation in Dibrugarh, by the tea garden.",
+    "Homestay by the Tea Garden in Seujpur, Dibrugarh, Assam: eight themed guest rooms, a Party Room for up to 20 guests and over a decade of hospitality.",
   // Used for the page's keyword tags only; the visible copy uses them naturally.
   keywords: [
     "homestay in Dibrugarh",
@@ -49,11 +57,24 @@ export const site = {
     country: "IN",
     streetAddress: "Lane 6, Seujpur, Opposite Jalan Tea Garden",
     address: "Lane 6, Seujpur, Opposite Jalan Tea Garden, Dibrugarh 786001, Assam, India",
-    // Dibrugarh city centre — used only for the weather widget.
+    // Dibrugarh city centre (NOT the property pin) — used only for the weather widget.
     lat: 27.4728,
     lng: 94.912,
   },
   phones: ["+91 9899997370", "+91 9531356250"],
+  /**
+   * OPTIONAL LOCAL-SEO FIELDS — leave empty until the OWNER confirms them. Each one is used (page + structured
+   * data) automatically as soon as it is filled in; nothing is guessed.
+   *  • geo          exact property coordinates from the verified Google Maps pin, e.g. { lat: 27.47, lng: 94.91 }
+   *  • mapEmbedUrl  the src="…" of Google Maps → Share → Embed a map (shows the map on the Contact page)
+   *  • checkInTime / checkOutTime  24-hour times, e.g. "12:00"
+   *  • mapsProfileUrl  the official Google Maps / Business Profile URL (becomes schema.org hasMap)
+   */
+  geo: null as null | { lat: number; lng: number },
+  mapEmbedUrl: "",
+  mapsProfileUrl: "",
+  checkInTime: "",
+  checkOutTime: "",
   // Confirmed by the owner as the homestay's WhatsApp number.
   whatsapp: "919899997370",
   email: "",

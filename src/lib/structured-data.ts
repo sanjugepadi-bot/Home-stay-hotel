@@ -3,8 +3,10 @@ import { faqs } from "@/data/faqs";
 import { rooms, TOTAL_ROOMS, lowestRoomPrice, highestRoomPrice, roomPath, roomsWithPages, type Room } from "@/data/rooms";
 import { gallery } from "@/data/gallery";
 import { legacy } from "@/data/legacy";
-import { photos } from "@/lib/photos";
+import { photoPublicPath } from "@/lib/photo-urls";
+import { partyRoom } from "@/data/party-room";
 import { absoluteUrl } from "@/lib/seo";
+import { PARTY_ROOM_CAPACITY, partyRoomFaqs, partyPhotoPath } from "@/data/party-room";
 
 /*
  * Structured data (schema.org JSON-LD).
@@ -24,7 +26,7 @@ const websiteId = `${site.url}/#website`;
 /** Cover photograph of a room, as an absolute image URL. */
 function roomCoverUrl(room: (typeof rooms)[number]) {
   const key = room.gallery?.[0]?.photoKey ?? room.photoKey;
-  return key ? absoluteUrl(photos[key].src) : undefined;
+  return key ? absoluteUrl(photoPublicPath[key]) : undefined;
 }
 
 function awardText() {
@@ -78,6 +80,10 @@ function lodgingNode() {
     ...(legacy.foundedYear ? { foundingDate: legacy.foundedYear } : {}),
     ...(site.email ? { email: site.email } : {}),
     ...(sameAs.length ? { sameAs } : {}),
+    ...(site.geo ? { geo: { "@type": "GeoCoordinates", latitude: site.geo.lat, longitude: site.geo.lng } } : {}),
+    ...(site.mapsProfileUrl ? { hasMap: site.mapsProfileUrl } : {}),
+    ...(site.checkInTime ? { checkinTime: site.checkInTime } : {}),
+    ...(site.checkOutTime ? { checkoutTime: site.checkOutTime } : {}),
   };
 }
 
@@ -171,7 +177,7 @@ export function roomsIndexJsonLd() {
 
 /** /rooms/[slug] — one themed room, with all of its photographs. */
 export function roomPageJsonLd(room: Room) {
-  const images = (room.gallery ?? []).map((p) => absoluteUrl(photos[p.photoKey].src));
+  const images = (room.gallery ?? []).map((p) => absoluteUrl(photoPublicPath[p.photoKey]));
   return {
     "@context": "https://schema.org",
     "@graph": [
@@ -200,7 +206,7 @@ export function galleryPageJsonLd() {
     .filter((g) => (seen.has(g.photoKey) ? false : (seen.add(g.photoKey), true)))
     .map((g) => ({
       "@type": "ImageObject",
-      contentUrl: absoluteUrl(photos[g.photoKey].src),
+      contentUrl: absoluteUrl(photoPublicPath[g.photoKey]),
       name: g.caption,
       description: g.alt,
     }));
@@ -220,6 +226,52 @@ export function galleryPageJsonLd() {
         { name: "Home", path: "/" },
         { name: "Gallery", path: "/gallery" },
       ]),
+    ],
+  };
+}
+
+/** /party-room — the separate Party Room (an event venue at the property; not one of the themed guest rooms). */
+export function partyRoomPageJsonLd() {
+  const images = partyRoom.photos.map((p) => absoluteUrl(partyPhotoPath(p.id)));
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebPage",
+        "@id": `${absoluteUrl("/party-room")}#page`,
+        url: absoluteUrl("/party-room"),
+        name: `Party Room in Dibrugarh — ${site.name}`,
+        isPartOf: { "@id": websiteId },
+        about: { "@id": `${absoluteUrl("/party-room")}#venue` },
+        inLanguage: "en-IN",
+      },
+      {
+        "@type": "EventVenue",
+        "@id": `${absoluteUrl("/party-room")}#venue`,
+        name: partyRoom.name,
+        description: partyRoom.description.join(" "),
+        url: absoluteUrl("/party-room"),
+        ...(images.length ? { image: images } : {}),
+        maximumAttendeeCapacity: PARTY_ROOM_CAPACITY,
+        containedInPlace: { "@id": lodgingId },
+        amenityFeature: partyRoom.facilities.map((name) => ({ "@type": "LocationFeatureSpecification", name, value: true })),
+        address: {
+          "@type": "PostalAddress",
+          streetAddress: site.location.streetAddress,
+          addressLocality: site.location.locality,
+          addressRegion: site.location.region,
+          postalCode: site.location.postalCode,
+          addressCountry: site.location.country,
+        },
+      },
+      breadcrumbNode([
+        { name: "Home", path: "/" },
+        { name: "Party Room", path: "/party-room" },
+      ]),
+      {
+        "@type": "FAQPage",
+        mainEntity: partyRoomFaqs.map((f) => ({ "@type": "Question", name: f.question, acceptedAnswer: { "@type": "Answer", text: f.answer } })),
+      },
     ],
   };
 }

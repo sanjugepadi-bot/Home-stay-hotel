@@ -16,6 +16,8 @@ import { formatINR } from "@/lib/utils";
 import { buildMetadata } from "@/lib/seo";
 import { roomPageJsonLd } from "@/lib/structured-data";
 import { photos } from "@/lib/photos";
+import { photoPublicPath } from "@/lib/photo-urls";
+import { BusinessJsonLd } from "@/components/seo/BusinessJsonLd";
 
 /** Lower-case the first letter of a phrase for use mid-sentence, keeping proper nouns (Hollywood, Bali) intact. */
 const lowerFirst = (s: string) => (/^(Hollywood|Bali|Assam)/.test(s) ? s : s.charAt(0).toLowerCase() + s.slice(1));
@@ -32,18 +34,18 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const room = getRoomBySlug(slug);
   if (!room) return {};
 
-  const title = `${room.name} — Themed Room in Dibrugarh | Tea Garden Homestay`;
+  const title = `${room.name} in Dibrugarh | Homestay by the Tea Garden`;
   const cover = room.gallery?.[0];
   const coverPhoto = cover ? photos[cover.photoKey] : undefined;
 
   return buildMetadata({
     title: { absolute: title },
     socialTitle: title,
-    description: `${room.name} at ${site.name}, Dibrugarh — ${room.highlights.slice(0, 3).map(lowerFirst).join(", ")}. Room rate ${formatINR(room.price)}. See ${room.gallery?.length ?? 0} photos and enquire.`,
+    description: `${room.name} at ${site.name}, Dibrugarh — ${room.highlights.slice(0, 3).map(lowerFirst).join(", ")}. Room rate ${formatINR(room.price)}. See ${room.gallery?.length ?? 0} photos and enquire on WhatsApp.`,
     path: roomPath(room),
     image:
       cover && coverPhoto
-        ? { url: coverPhoto.src, width: coverPhoto.width, height: coverPhoto.height, alt: cover.alt }
+        ? { url: photoPublicPath[cover.photoKey], width: coverPhoto.width, height: coverPhoto.height, alt: cover.alt }
         : undefined,
   });
 }
@@ -62,6 +64,7 @@ export default async function RoomPage({ params }: { params: Promise<{ slug: str
 
   return (
     <>
+      <BusinessJsonLd />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(roomPageJsonLd(room)) }}

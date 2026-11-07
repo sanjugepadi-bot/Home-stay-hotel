@@ -65,3 +65,43 @@ export const partyRoom = {
     },
   ] as PartyRoomPhoto[],
 };
+
+/** Owner-confirmed numbers, used in copy and structured data. */
+export const PARTY_ROOM_CAPACITY = 20;
+export const PARTY_ROOM_SLEEPS = 6;
+
+/** Owner-stated uses (from the owner's description). */
+export const partyRoomUseCases = ["Birthday parties", "Anniversaries", "Engagement celebrations", "Bachelor parties", "Hen parties"];
+
+/** Stable public URLs of the Party Room photographs (for structured data and the sitemap). */
+const PHOTO_FILES: Record<string, string> = {
+  "lounge-beds": "party-room-chalk-art-lounge-and-beds.webp",
+  "sofa-window-beds": "party-room-sofa-window-and-beds.webp",
+  "yellow-sofa-window": "party-room-yellow-sofa-and-window.webp",
+  "chalk-wall-beds": "party-room-chalk-art-wall-and-beds.webp",
+};
+export const partyPhotoPath = (id: string) => `/images/homestay/party-room/${PHOTO_FILES[id]}`;
+
+/** Questions answered ONLY with owner-confirmed facts (no rates, policies or extra amenities are invented). */
+export const partyRoomFaqs = [
+  {
+    question: "How many guests can the Party Room host?",
+    answer: `The Party Room at Homestay by the Tea Garden is designed for hosting up to ${PARTY_ROOM_CAPACITY} guests.`,
+  },
+  {
+    question: "Can guests stay overnight in the Party Room?",
+    answer: `Yes. It provides sleeping arrangements for up to ${PARTY_ROOM_SLEEPS} guests, with convertible sofa beds.`,
+  },
+  {
+    question: "What facilities does the Party Room have?",
+    answer: "A sound system, psychedelic lighting, a kitchen and a bar counter, with views of the tea gardens.",
+  },
+  {
+    question: "What celebrations is the Party Room suited to?",
+    answer: "Birthday parties, anniversaries, engagement celebrations, bachelor parties and hen parties.",
+  },
+  {
+    question: "How do I enquire about the Party Room?",
+    answer: "Message the host on WhatsApp or call the homestay. Rates and availability are confirmed directly with the host.",
+  },
+];

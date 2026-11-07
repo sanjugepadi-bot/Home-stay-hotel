@@ -12,19 +12,21 @@ import { site, phoneHref } from "@/data/site";
 import { formatINR } from "@/lib/utils";
 import { buildMetadata } from "@/lib/seo";
 import { aboutPageJsonLd } from "@/lib/structured-data";
+import { BusinessJsonLd } from "@/components/seo/BusinessJsonLd";
 
 const title = `About ${site.name} | Hospitality in Dibrugarh`;
 
 export const metadata: Metadata = buildMetadata({
   title: { absolute: title },
   socialTitle: title,
-  description: `${site.name} in Seujpur, Dibrugarh — over a decade of hospitality, regarded by its owners as the city's first homestay, with ${roomCountPhrase}.`,
+  description: `${site.name} in Seujpur, Dibrugarh — over a decade of traditional Assamese hospitality, ${rooms.length} themed guest rooms and a separate Party Room.`,
   path: "/about",
 });
 
 export default function AboutPage() {
   return (
     <>
+      <BusinessJsonLd />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(aboutPageJsonLd()) }}
@@ -71,7 +73,7 @@ export default function AboutPage() {
                     <li key={r.id} className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 px-5 py-3.5 text-sm">
                       <span className="font-semibold text-foreground">
                         {roomHasPage(r) ? (
-                          <Link href={roomPath(r)} className="underline-offset-4 hover:text-gold-deep hover:underline">
+                          <Link href={roomPath(r)} className="inline-flex min-h-11 items-center underline-offset-4 hover:text-gold-deep hover:underline">
                             {r.name}
                           </Link>
                         ) : (

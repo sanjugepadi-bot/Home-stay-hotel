@@ -2,12 +2,14 @@ import type { MetadataRoute } from "next";
 import { site } from "@/data/site";
 import { gallery } from "@/data/gallery";
 import { roomPath, roomsWithPages } from "@/data/rooms";
-import { photos, type PhotoKey } from "@/lib/photos";
+import type { PhotoKey } from "@/lib/photos";
+import { photoPublicPath } from "@/lib/photo-urls";
+import { partyRoom, partyPhotoPath } from "@/data/party-room";
 import { absoluteUrl } from "@/lib/seo";
 
 /** Absolute, crawlable image URLs (descriptive filenames) for a set of photos. */
 function imageUrls(keys: PhotoKey[]) {
-  return [...new Set(keys.map((k) => absoluteUrl(photos[k].src)))];
+  return [...new Set(keys.map((k) => absoluteUrl(photoPublicPath[k])))];
 }
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -27,6 +29,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       images: imageUrls((room.gallery ?? []).map((p) => p.photoKey)),
     })),
     { url: absoluteUrl("/gallery"), lastModified, images: imageUrls(gallery.map((g) => g.photoKey)) },
+    { url: absoluteUrl("/party-room"), lastModified, images: partyRoom.photos.map((p) => absoluteUrl(partyPhotoPath(p.id))) },
     { url: absoluteUrl("/about"), lastModified },
     { url: absoluteUrl("/contact"), lastModified },
   ];

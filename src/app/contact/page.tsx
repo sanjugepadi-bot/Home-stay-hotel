@@ -8,19 +8,21 @@ import { site, phoneHref } from "@/data/site";
 import { directionsUrl, locationInfo } from "@/data/location";
 import { buildMetadata } from "@/lib/seo";
 import { contactPageJsonLd } from "@/lib/structured-data";
+import { BusinessJsonLd } from "@/components/seo/BusinessJsonLd";
 
 const contactTitle = `Contact & Book | ${site.name}, Dibrugarh`;
 
 export const metadata: Metadata = buildMetadata({
   title: { absolute: contactTitle },
   socialTitle: contactTitle,
-  description: `Call, WhatsApp or send a booking request to ${site.name} in Seujpur, Dibrugarh. Ask about room rates and availability.`,
+  description: `Call, WhatsApp or send a booking enquiry to ${site.name} in Seujpur, Dibrugarh. Ask about room rates, availability and the Party Room.`,
   path: "/contact",
 });
 
 export default function ContactPage() {
   return (
     <div className="pb-24 pt-28 sm:pt-32">
+      <BusinessJsonLd />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(contactPageJsonLd()) }}

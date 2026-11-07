@@ -11,16 +11,17 @@ import { site } from "@/data/site";
 import { formatINR } from "@/lib/utils";
 import { buildMetadata } from "@/lib/seo";
 import { roomsIndexJsonLd } from "@/lib/structured-data";
+import { BusinessJsonLd } from "@/components/seo/BusinessJsonLd";
 
 const names = rooms.map((r) => r.name.replace("The ", "").replace(" Room", ""));
 const nameList = `${names.slice(0, -1).join(", ")} and ${names[names.length - 1]}`;
 
-const title = "Rooms & Rates | Accommodation in Dibrugarh | Tea Garden Homestay";
+const title = "Rooms & Rates in Dibrugarh | Homestay by the Tea Garden";
 
 export const metadata: Metadata = buildMetadata({
   title: { absolute: title },
   socialTitle: title,
-  description: `${roomCountPhrase} in Dibrugarh, Assam — guest rooms: ${nameList}. See room rates, what's included and photographs.`,
+  description: `${rooms.length} individually themed guest rooms in Dibrugarh, Assam — ${nameList}. See room rates, what's included and photographs.`,
   path: "/rooms",
 });
 
@@ -61,6 +62,7 @@ const guide: { title: string; text: string; roomIds: string[] }[] = [
 export default function RoomsPage() {
   return (
     <>
+      <BusinessJsonLd />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(roomsIndexJsonLd()) }}
@@ -140,7 +142,7 @@ export default function RoomsPage() {
                     <tr key={r.id} className="border-b border-border last:border-0">
                       <th scope="row" className="px-5 py-3.5 font-semibold text-foreground">
                         {roomHasPage(r) ? (
-                          <Link href={roomPath(r)} className="underline-offset-4 hover:text-gold-deep hover:underline">
+                          <Link href={roomPath(r)} className="inline-flex min-h-11 items-center underline-offset-4 hover:text-gold-deep hover:underline">
                             {r.name}
                           </Link>
                         ) : (
