@@ -21,8 +21,8 @@ export type CountdownEvent = {
 };
 
 export const countdown = {
-  /** Master switch. */
-  enabled: true,
+  /** Master switch. Currently OFF (removed from the site at the owner's request) - set to true to show it again. */
+  enabled: false,
 
   /** Small label above the headline. */
   eyebrow: "Countdown to",
