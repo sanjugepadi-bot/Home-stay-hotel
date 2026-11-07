@@ -28,12 +28,14 @@ export function CurrencyConverter() {
         <span className="text-sm font-medium text-muted-foreground">₹</span>
         <input
           type="number"
+          aria-label="Amount in rupees"
           value={amount}
           onChange={(e) => setAmount(Number(e.target.value))}
           className="min-h-11 w-24 rounded-lg border border-border bg-background/80 px-2 py-1.5 text-base text-foreground focus:border-gold focus:outline-none sm:text-sm"
         />
         <span className="text-sm font-medium text-muted-foreground">=</span>
         <select
+          aria-label="Convert to currency"
           value={currency}
           onChange={(e) => setCurrency(e.target.value)}
           className="min-h-11 rounded-lg border border-border bg-background/80 px-2 py-1.5 text-base text-foreground focus:border-gold focus:outline-none sm:text-sm"

@@ -123,10 +123,12 @@ export function AiTravelAssistant() {
             className="flex items-center gap-2 border-t border-beige-light/10 p-3"
           >
             <input
+              aria-label="Your question for the assistant"
+              maxLength={800}
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="Ask about rooms or visiting Dibrugarh…"
-              className="min-h-11 flex-1 rounded-full bg-beige-light/10 px-4 py-2.5 text-base text-beige-light placeholder:text-beige-light/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-gold sm:text-sm"
+              className="min-h-11 flex-1 rounded-full bg-beige-light/10 px-4 py-2.5 text-base text-beige-light placeholder:text-beige-light/70 focus:outline-none focus-visible:ring-2 focus-visible:ring-gold sm:text-sm"
             />
             <motion.button
               whileTap={{ scale: 0.92 }}
