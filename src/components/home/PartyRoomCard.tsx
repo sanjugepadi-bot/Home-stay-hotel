@@ -32,7 +32,7 @@ export function PartyRoomCard({ className }: { className?: string }) {
               {partyRoom.name}
             </h3>
             <p className="mt-2 text-sm font-semibold uppercase tracking-[0.18em] text-gold-light/90">
-              A separate space — apart from the guest bedrooms
+              Celebrations, private events &amp; overnight stays
             </p>
 
             {partyRoom.description.length > 0 && (
