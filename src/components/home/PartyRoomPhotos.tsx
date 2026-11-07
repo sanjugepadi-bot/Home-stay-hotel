@@ -8,7 +8,7 @@ import type { PartyRoomPhoto } from "@/data/party-room";
 import { cn } from "@/lib/utils";
 
 /** Owner's Party Room photographs: one large framed main photo, a thumbnail strip, and a full-screen viewer. */
-export function PartyRoomPhotos({ photos }: { photos: PartyRoomPhoto[] }) {
+export function PartyRoomPhotos({ photos, priority = false }: { photos: PartyRoomPhoto[]; priority?: boolean }) {
   const [index, setIndex] = useState<number | null>(null);
   const [main, setMain] = useState(0);
   const current = photos[main] ?? photos[0];
@@ -29,7 +29,7 @@ export function PartyRoomPhotos({ photos }: { photos: PartyRoomPhoto[] }) {
               src={current.src}
               alt={current.alt}
               fill
-              priority={false}
+              priority={priority}
               sizes="(min-width: 1280px) 520px, (min-width: 1024px) 40vw, (min-width: 768px) 448px, 92vw"
               quality={85}
               placeholder="blur"

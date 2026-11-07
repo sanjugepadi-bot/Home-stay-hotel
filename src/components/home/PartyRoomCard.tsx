@@ -1,4 +1,5 @@
-import { MessageCircle, PartyPopper, Sparkles } from "lucide-react";
+import Link from "next/link";
+import { ArrowRight, MessageCircle, PartyPopper, Sparkles } from "lucide-react";
 import { Reveal } from "@/components/ui/Reveal";
 import { buttonVariants } from "@/components/ui/Button";
 import { partyRoom } from "@/data/party-room";
@@ -70,14 +71,22 @@ export function PartyRoomCard({ className }: { className?: string }) {
               </p>
             )}
 
-            <a
-              href={whatsappLink(`Hi ${site.name}! I'd like to know about the Party Room.`)}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={cn(buttonVariants({ variant: "gold", size: "lg" }), "mt-7")}
-            >
-              <MessageCircle className="h-4.5 w-4.5" aria-hidden /> Ask about the Party Room
-            </a>
+            <div className="mt-7 flex flex-wrap items-center gap-x-6 gap-y-3">
+              <a
+                href={whatsappLink(`Hi ${site.name}! I'd like to know about the Party Room.`)}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={buttonVariants({ variant: "gold", size: "lg" })}
+              >
+                <MessageCircle className="h-4.5 w-4.5" aria-hidden /> Ask about the Party Room
+              </a>
+              <Link
+                href="/party-room"
+                className="inline-flex min-h-11 items-center gap-1.5 font-semibold text-gold-light underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold"
+              >
+                Party Room details <ArrowRight className="h-4 w-4" aria-hidden />
+              </Link>
+            </div>
           </div>
 
           {hasPhotos && <PartyRoomPhotos photos={partyRoom.photos} />}

@@ -77,6 +77,15 @@ export default function ContactPage() {
                 </Link>
               </div>
             </section>
+            {site.mapEmbedUrl && (
+              <iframe
+                title={`Map showing the location of ${site.name}`}
+                src={site.mapEmbedUrl}
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                className="h-64 w-full rounded-xl border border-border"
+              />
+            )}
             {site.phones.map((phone) => (
               <a
                 key={phone}

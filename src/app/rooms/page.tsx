@@ -21,7 +21,7 @@ const title = "Rooms & Rates in Dibrugarh | Homestay by the Tea Garden";
 export const metadata: Metadata = buildMetadata({
   title: { absolute: title },
   socialTitle: title,
-  description: `${rooms.length} individually themed guest rooms in Dibrugarh, Assam — ${nameList}. See room rates, what's included and photographs.`,
+  description: `${rooms.length} themed guest rooms in Dibrugarh, Assam — ${nameList}. See room rates, what's included and photographs.`,
   path: "/rooms",
 });
 
@@ -34,7 +34,7 @@ const guide: { title: string; text: string; roomIds: string[] }[] = [
   },
   {
     title: "Couples and backpackers",
-    text: "The Pink Room is a small, cozy room with a double bed and a tea garden facing balcony.",
+    text: "The Pink Room is a small, cosy room with a double bed and a tea garden facing balcony.",
     roomIds: ["pink"],
   },
   {

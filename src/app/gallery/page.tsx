@@ -17,7 +17,7 @@ const title = "Photo Gallery | Homestay by the Tea Garden, Dibrugarh";
 export const metadata: Metadata = buildMetadata({
   title: { absolute: title },
   socialTitle: title,
-  description: `Real photographs of the themed guest rooms at ${site.name}, Dibrugarh — plus the bathroom and kitchen. Browse all ${new Set(gallery.map((g) => g.photoKey)).size} photos.`,
+  description: `Real photographs of the themed guest rooms at ${site.name}, Dibrugarh — plus the bathroom and kitchen. Browse all ${new Set(gallery.map((g) => g.photoKey)).size} photos room by room.`,
   path: "/gallery",
 });
 

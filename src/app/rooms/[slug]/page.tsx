@@ -38,10 +38,15 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const cover = room.gallery?.[0];
   const coverPhoto = cover ? photos[cover.photoKey] : undefined;
 
+  // Keep the description within ~160 characters: use three highlights when they fit, otherwise two.
+  const describe = (n: number) =>
+    `${room.name} at ${site.name}, Dibrugarh — ${room.highlights.slice(0, n).map(lowerFirst).join(", ")}. Room rate ${formatINR(room.price)}. See ${room.gallery?.length ?? 0} photos and enquire on WhatsApp.`;
+  const description = describe(3).length <= 160 ? describe(3) : describe(2);
+
   return buildMetadata({
     title: { absolute: title },
     socialTitle: title,
-    description: `${room.name} at ${site.name}, Dibrugarh — ${room.highlights.slice(0, 3).map(lowerFirst).join(", ")}. Room rate ${formatINR(room.price)}. See ${room.gallery?.length ?? 0} photos and enquire on WhatsApp.`,
+    description,
     path: roomPath(room),
     image:
       cover && coverPhoto

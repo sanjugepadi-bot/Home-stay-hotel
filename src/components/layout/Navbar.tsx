@@ -20,6 +20,7 @@ import { cn } from "@/lib/utils";
 const links = [
   { href: "#legacy", label: "Our Legacy" },
   { href: "#rooms", label: "Rooms" },
+  { href: "party-room", label: "Party Room" },
   ...(experiences.length ? [{ href: "#experiences", label: "Experiences" }] : []),
   { href: "#gallery", label: "Gallery" },
   ...(reviews.length ? [{ href: "#reviews", label: "Reviews" }] : []),

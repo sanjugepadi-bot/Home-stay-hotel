@@ -101,7 +101,7 @@ export const rooms: Room[] = [
     id: "pink",
     name: "The Pink Room",
     description:
-      "Small, cozy room with a double bed & a tea garden facing balcony perfect for couples & backpackers.",
+      "Small, cosy room with a double bed & a tea garden facing balcony perfect for couples & backpackers.",
     price: 3000,
     highlights: ["Double bed", "Tea garden balcony"],
     bestFor: "Couples and backpackers.",

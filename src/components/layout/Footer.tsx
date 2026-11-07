@@ -15,6 +15,7 @@ const columns = [
     links: [
       { href: "/about", label: "About Us" },
       { href: "/rooms", label: "Rooms & Rates" },
+      { href: "/party-room", label: "Party Room" },
       { href: "/gallery", label: "Photo Gallery" },
       ...(experiences.length ? [{ href: "/#experiences", label: "Experiences" }] : []),
       ...(attractions.length ? [{ href: "/#nearby", label: "Nearby Attractions" }] : []),
