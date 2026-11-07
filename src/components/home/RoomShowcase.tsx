@@ -294,7 +294,7 @@ export function RoomShowcase({ illustrations = {} }: { illustrations?: Record<st
                   />
                 ))}
               </div>
-              <Link href="/rooms" className="mt-5 hidden items-center gap-2 text-base font-semibold text-gold-deep underline-offset-4 hover:underline xl:inline-flex">
+              <Link href="/rooms" className="mt-5 hidden min-h-11 items-center gap-2 text-base font-semibold text-gold-deep underline-offset-4 hover:underline xl:inline-flex">
                 Compare all rooms &amp; rates <ArrowRight className="h-4.5 w-4.5" aria-hidden />
               </Link>
             </div>

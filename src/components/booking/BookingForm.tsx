@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useId, useState } from "react";
 import { useForm } from "react-hook-form";
 import { CheckCircle2, Lock, Send } from "lucide-react";
 import { Button } from "@/components/ui/Button";
@@ -16,6 +16,7 @@ const inputClass =
 export function BookingForm() {
   const { roomId, checkIn, checkOut, guests } = useBooking();
   const [submitted, setSubmitted] = useState(false);
+  const uid = useId();
 
   const {
     register,
@@ -67,17 +68,23 @@ export function BookingForm() {
     >
       <div className="grid gap-4 sm:grid-cols-2">
         <div>
+          <label htmlFor={uid + "-name"} className="sr-only">Full name</label>
           <input
+            id={uid + "-name"}
+            aria-invalid={errors.name ? true : undefined}
             type="text"
             autoComplete="name"
             className={inputClass}
             placeholder="Full name"
             {...register("name")}
           />
-          {errors.name && <p className="mt-1 text-xs text-red-500">{errors.name.message}</p>}
+          {errors.name && <p role="alert" className="mt-1 text-xs text-red-700 dark:text-red-400">{errors.name.message}</p>}
         </div>
         <div>
+          <label htmlFor={uid + "-email"} className="sr-only">Email address</label>
           <input
+            id={uid + "-email"}
+            aria-invalid={errors.email ? true : undefined}
             type="email"
             inputMode="email"
             autoComplete="email"
@@ -85,13 +92,16 @@ export function BookingForm() {
             placeholder="Email address"
             {...register("email")}
           />
-          {errors.email && <p className="mt-1 text-xs text-red-500">{errors.email.message}</p>}
+          {errors.email && <p role="alert" className="mt-1 text-xs text-red-700 dark:text-red-400">{errors.email.message}</p>}
         </div>
       </div>
 
       <div className="grid gap-4 sm:grid-cols-2">
         <div>
+          <label htmlFor={uid + "-phone"} className="sr-only">Phone number</label>
           <input
+            id={uid + "-phone"}
+            aria-invalid={errors.phone ? true : undefined}
             type="tel"
             inputMode="tel"
             autoComplete="tel"
@@ -99,31 +109,36 @@ export function BookingForm() {
             placeholder="Phone number"
             {...register("phone")}
           />
-          {errors.phone && <p className="mt-1 text-xs text-red-500">{errors.phone.message}</p>}
+          {errors.phone && <p role="alert" className="mt-1 text-xs text-red-700 dark:text-red-400">{errors.phone.message}</p>}
         </div>
-        <select className={cn(inputClass, "appearance-none")} {...register("roomId")}>
+        <div>
+        <label htmlFor={uid + "-room"} className="sr-only">Room</label>
+        <select id={uid + "-room"} className={cn(inputClass, "appearance-none")} {...register("roomId")}>
           {rooms.map((r) => (
             <option key={r.id} value={r.id}>
               {r.name} — {formatINR(r.price)}
             </option>
           ))}
         </select>
+        </div>
       </div>
 
       <div className="grid gap-4 sm:grid-cols-3">
         <div>
-          <label className="mb-1.5 block text-xs font-semibold text-muted-foreground">Check-in</label>
-          <input type="date" className={inputClass} {...register("checkIn")} />
-          {errors.checkIn && <p className="mt-1 text-xs text-red-500">{errors.checkIn.message}</p>}
+          <label htmlFor={uid + "-checkin"} className="mb-1.5 block text-xs font-semibold text-muted-foreground">Check-in</label>
+          <input id={uid + "-checkin"} type="date" aria-invalid={errors.checkIn ? true : undefined} className={inputClass} {...register("checkIn")} />
+          {errors.checkIn && <p role="alert" className="mt-1 text-xs text-red-700 dark:text-red-400">{errors.checkIn.message}</p>}
         </div>
         <div>
-          <label className="mb-1.5 block text-xs font-semibold text-muted-foreground">Check-out</label>
-          <input type="date" className={inputClass} {...register("checkOut")} />
-          {errors.checkOut && <p className="mt-1 text-xs text-red-500">{errors.checkOut.message}</p>}
+          <label htmlFor={uid + "-checkout"} className="mb-1.5 block text-xs font-semibold text-muted-foreground">Check-out</label>
+          <input id={uid + "-checkout"} type="date" aria-invalid={errors.checkOut ? true : undefined} className={inputClass} {...register("checkOut")} />
+          {errors.checkOut && <p role="alert" className="mt-1 text-xs text-red-700 dark:text-red-400">{errors.checkOut.message}</p>}
         </div>
         <div>
-          <label className="mb-1.5 block text-xs font-semibold text-muted-foreground">Guests</label>
+          <label htmlFor={uid + "-guests"} className="mb-1.5 block text-xs font-semibold text-muted-foreground">Guests</label>
           <input
+            id={uid + "-guests"}
+            aria-invalid={errors.guests ? true : undefined}
             type="number"
             inputMode="numeric"
             min={1}
@@ -131,11 +146,13 @@ export function BookingForm() {
             className={inputClass}
             {...register("guests", { valueAsNumber: true })}
           />
-          {errors.guests && <p className="mt-1 text-xs text-red-500">{errors.guests.message}</p>}
+          {errors.guests && <p role="alert" className="mt-1 text-xs text-red-700 dark:text-red-400">{errors.guests.message}</p>}
         </div>
       </div>
 
+      <label htmlFor={uid + "-message"} className="sr-only">Message (optional)</label>
       <textarea
+        id={uid + "-message"}
         rows={3}
         placeholder="Anything else we should know? (optional)"
         className={inputClass}

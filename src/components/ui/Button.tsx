@@ -10,7 +10,7 @@ export const buttonVariants = cva(
         forest: "bg-forest text-beige-light hover:bg-forest-light shadow-lg shadow-forest/25 hover:shadow-xl hover:-translate-y-0.5",
         outline: "border-2 border-current/25 text-foreground hover:border-gold hover:text-gold-deep dark:hover:text-gold",
         ghost: "text-foreground hover:bg-foreground/5",
-        whatsapp: "bg-[#25D366] text-white hover:bg-[#1ebe57] shadow-lg shadow-[#25D366]/25 hover:shadow-xl hover:-translate-y-0.5",
+        whatsapp: "bg-[#0b7a4b] text-white hover:bg-[#096040] shadow-lg shadow-[#0b7a4b]/25 hover:shadow-xl hover:-translate-y-0.5",
       },
       size: {
         sm: "h-11 px-4 text-[clamp(0.8125rem,0.78rem+0.15vw,0.875rem)]",

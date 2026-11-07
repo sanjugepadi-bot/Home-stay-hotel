@@ -10,7 +10,7 @@ import { ScrollProgress } from "@/components/layout/ScrollProgress";
 import { StickyBookingBar } from "@/components/layout/StickyBookingBar";
 import { LeadCapturePopup } from "@/components/layout/LeadCapturePopup";
 import { site } from "@/data/site";
-import { lodgingBusinessJsonLd } from "@/lib/structured-data";
+import { MotionProvider } from "@/components/layout/MotionProvider";
 import { homeTitle, ogImage } from "@/lib/seo";
 
 const playfair = Playfair_Display({
@@ -63,21 +63,24 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en-IN" suppressHydrationWarning className={`${playfair.variable} ${manrope.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col">
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(lodgingBusinessJsonLd()) }}
-        />
+        <a href="#main-content" className="skip-link">
+          Skip to main content
+        </a>
+        <MotionProvider>
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
           <BookingProvider>
             <ScrollProgress />
             <Navbar />
-            <main className="flex-1">{children}</main>
+            <main id="main-content" tabIndex={-1} className="flex-1 outline-none">
+              {children}
+            </main>
             <Footer />
             <WhatsAppButton />
             <StickyBookingBar />
             <LeadCapturePopup />
           </BookingProvider>
         </ThemeProvider>
+        </MotionProvider>
       </body>
     </html>
   );

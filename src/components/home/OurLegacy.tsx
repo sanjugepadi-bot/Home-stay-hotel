@@ -138,7 +138,7 @@ function RoomFeature({
           </span>
           <h3 className="pop-1 mt-2 font-display text-[clamp(1.75rem,1.4rem+0.8vw,2.2rem)] font-medium leading-tight text-white drop-shadow-[0_4px_14px_rgba(0,0,0,0.5)]">
             {href ? (
-              <Link href={href} className="underline-offset-[7px] decoration-[color:var(--c2)] decoration-2 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white">
+              <Link href={href} className="-my-2 inline-flex min-h-11 items-center underline-offset-[7px] decoration-[color:var(--c2)] decoration-2 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white">
                 {room.name}
               </Link>
             ) : (

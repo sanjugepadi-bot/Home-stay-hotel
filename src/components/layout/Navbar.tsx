@@ -70,7 +70,7 @@ export function Navbar() {
       )}
     >
       <Container className="flex items-center justify-between">
-        <Link href="/#top" className="group flex min-w-0 items-center gap-2.5 font-display tracking-tight">
+        <Link href="/#top" className="group flex min-h-11 min-w-0 items-center gap-2.5 font-display tracking-tight">
           <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-forest text-gold ring-2 ring-gold/40 transition-transform group-hover:scale-105">
             <Leaf className="h-5 w-5" />
           </span>
@@ -85,7 +85,7 @@ export function Navbar() {
               key={l.href}
               href={`/${l.href}`}
               className={cn(
-                "relative rounded-sm py-1 text-sm font-semibold tracking-wide text-foreground/85 transition-colors after:absolute after:inset-x-0 after:-bottom-0.5 after:h-px after:origin-left after:scale-x-0 after:bg-gold after:transition-transform after:duration-300 hover:text-gold-deep hover:after:scale-x-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold"
+                "relative inline-flex min-h-11 min-w-11 items-center justify-center rounded-sm text-sm font-semibold tracking-wide text-foreground/85 transition-colors after:absolute after:inset-x-0 after:bottom-2.5 after:h-px after:origin-left after:scale-x-0 after:bg-gold after:transition-transform after:duration-300 hover:text-gold-deep hover:after:scale-x-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold"
               )}
             >
               {l.label}

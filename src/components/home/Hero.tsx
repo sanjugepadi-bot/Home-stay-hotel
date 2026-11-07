@@ -31,10 +31,11 @@ export function Hero() {
       <Container className="relative z-10">
         <div className="grid items-center gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:gap-14 xl:gap-20">
           <div className="hero-rise order-2 lg:order-1">
-            <span className="mb-6 inline-flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.22em] text-gold-deep sm:text-xs">
-              <span className="h-px w-8 bg-gold" /> Homestay in Dibrugarh, Assam
-            </span>
             <h1 className="font-display text-[clamp(2.4rem,1.5rem+3.6vw,4.4rem)] font-medium leading-[1.06] tracking-tight text-foreground">
+              <span className="mb-6 flex items-center gap-3 font-sans text-[11px] font-semibold uppercase leading-normal tracking-[0.22em] text-gold-deep sm:text-xs">
+                <span aria-hidden className="h-px w-8 bg-gold" /> Homestay in Dibrugarh, Assam
+              </span>
+              <span className="sr-only">: </span>
               {site.tagline}
             </h1>
             <p className="mt-6 max-w-lg text-[clamp(1rem,0.92rem+0.4vw,1.2rem)] leading-relaxed text-muted-foreground">

@@ -44,7 +44,7 @@ export function BookingWidget({ className }: { className?: string }) {
         </label>
         <a href="#book">
           <Button variant="gold" size="lg" className="w-full">
-            Check Availability
+            Enquire for These Dates
           </Button>
         </a>
       </div>

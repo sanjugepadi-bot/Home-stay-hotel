@@ -23,8 +23,8 @@ export function PartyRoomCard({ className }: { className?: string }) {
         <div aria-hidden className="pointer-events-none absolute -right-16 -top-16 -z-10 h-64 w-64 rounded-full border border-gold/25" />
         <div aria-hidden className="pointer-events-none absolute -right-6 -top-6 -z-10 h-40 w-40 rounded-full border border-gold/20" />
 
-        <div className={cn("grid items-center gap-8", hasPhotos && "lg:grid-cols-[1.05fr_0.95fr] lg:gap-14")}>
-          <div>
+        <div className={cn("grid grid-cols-[minmax(0,1fr)] items-center gap-8", hasPhotos && "lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] lg:gap-14")}>
+          <div className="min-w-0">
             <span className="inline-flex items-center gap-2.5 text-xs font-bold uppercase tracking-[0.22em] text-gold-light sm:text-sm">
               <PartyPopper className="h-4.5 w-4.5" aria-hidden /> Also at the homestay
             </span>

@@ -17,7 +17,7 @@
   /* Darker gold for small text on light surfaces (eyebrow labels, links) —
      --gold itself is reserved for buttons/icons/large elements where its
      contrast against --background already clears WCAG AA. */
-  --gold-deep: #93700f;
+  --gold-deep: #7d5e0b;
 
   --card: #ffffff;
   --card-foreground: #1a231d;
@@ -297,3 +297,46 @@ p {
 @keyframes countdown-tick { from { opacity: 0.35; transform: translateY(-4px); } to { opacity: 1; transform: none; } }
 .countdown-tick { animation: countdown-tick 0.35s ease-out both; }
 @media (prefers-reduced-motion: reduce) { .countdown-tick { animation: none; } }
+
+/* ── Accessibility ─────────────────────────────────────────────────────────── */
+/* Skip link: hidden until it receives keyboard focus. */
+.skip-link {
+  position: fixed;
+  left: 0.75rem;
+  top: 0.75rem;
+  z-index: 100;
+  transform: translateY(-200%);
+  border-radius: 9999px;
+  background: var(--forest);
+  color: var(--beige-light);
+  padding: 0.75rem 1.25rem;
+  font-weight: 600;
+  font-size: 0.9375rem;
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+  transition: transform 0.15s ease;
+}
+.skip-link:focus {
+  transform: translateY(0);
+}
+
+/* Clear keyboard focus ring everywhere (components with their own ring keep it). */
+:focus-visible {
+  outline: 2px solid var(--gold-deep);
+  outline-offset: 3px;
+}
+.dark :focus-visible {
+  outline-color: var(--gold);
+}
+
+/* Respect the visitor's "reduce motion" setting for any remaining CSS animation. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.001ms !important;
+  }
+}

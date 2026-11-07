@@ -42,7 +42,7 @@ export function Footer() {
     <footer className="bg-forest text-beige-light">
       <Container className="grid gap-12 py-20 sm:grid-cols-2 lg:grid-cols-[1.3fr_1fr_1fr_1.1fr] lg:gap-10">
         <div>
-          <Link href="/#top" className={`flex items-center gap-2.5 text-xl text-beige-light ${focusRing}`}>
+          <Link href="/#top" className={`flex min-h-11 items-center gap-2.5 text-xl text-beige-light ${focusRing}`}>
             <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-gold text-forest ring-2 ring-gold/30">
               <Leaf className="h-5 w-5" />
             </span>
@@ -70,10 +70,10 @@ export function Footer() {
         {columns.map((col) => (
           <div key={col.title}>
             <p className="font-display text-sm font-bold uppercase tracking-[0.15em] text-gold-light">{col.title}</p>
-            <ul className="mt-5 space-y-3.5 text-[15px] text-beige-light/85">
+            <ul className="mt-5 space-y-0.5 text-[15px] text-beige-light/85">
               {col.links.map((l) => (
                 <li key={l.label}>
-                  <Link href={l.href} className={`transition-colors hover:text-gold-light ${focusRing}`}>
+                  <Link href={l.href} className={`flex min-h-11 items-center transition-colors hover:text-gold-light ${focusRing}`}>
                     {l.label}
                   </Link>
                 </li>

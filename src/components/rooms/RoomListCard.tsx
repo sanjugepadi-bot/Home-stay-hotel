@@ -60,7 +60,7 @@ export function RoomListCard({
       <div className="flex flex-1 flex-col p-5">
         <Heading className="text-xl text-foreground">
           {href ? (
-            <Link href={href} className="underline-offset-4 hover:text-gold-deep hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold">
+            <Link href={href} className="-my-2 inline-flex min-h-11 items-center underline-offset-4 hover:text-gold-deep hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold">
               {room.name}
             </Link>
           ) : (

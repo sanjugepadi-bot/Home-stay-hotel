@@ -54,7 +54,7 @@ export function WhyChooseUs() {
         <Reveal delay={0.15}>
           <div className="mt-12 flex flex-wrap justify-center gap-3">
             <a href="#book" className={buttonVariants({ variant: "gold", size: "lg" })}>
-              Check Availability
+              Send a Booking Enquiry
             </a>
             <a href="#rooms" className={buttonVariants({ variant: "outline", size: "lg" })}>
               Explore Our Rooms
