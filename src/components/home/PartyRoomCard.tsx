@@ -11,7 +11,7 @@ import { PartyRoomPhotos } from "./PartyRoomPhotos";
  * panel instead of a photo card). Shows only owner-confirmed content; fields stay hidden until supplied.
  */
 export function PartyRoomCard({ className }: { className?: string }) {
-  const hasDetails = Boolean(partyRoom.description || partyRoom.capacity || partyRoom.rate || partyRoom.facilities.length);
+  const hasDetails = Boolean(partyRoom.description.length || partyRoom.capacity || partyRoom.rate || partyRoom.facilities.length);
   const hasPhotos = partyRoom.photos.length > 0;
 
   return (
@@ -35,8 +35,17 @@ export function PartyRoomCard({ className }: { className?: string }) {
               A separate space — apart from the guest bedrooms
             </p>
 
-            {partyRoom.description && (
-              <p className="mt-5 max-w-2xl text-[1.0625rem] leading-relaxed text-beige-light/90 xl:text-lg">{partyRoom.description}</p>
+            {partyRoom.description.length > 0 && (
+              <div className="mt-7 max-w-2xl">
+                {partyRoom.descriptionTitle && (
+                  <h4 className="font-display text-[clamp(1.35rem,1.1rem+0.9vw,1.85rem)] font-medium leading-snug text-gold-light">{partyRoom.descriptionTitle}</h4>
+                )}
+                <div className="mt-4 space-y-4 text-[1.0625rem] leading-8 text-beige-light/90 xl:text-lg xl:leading-8">
+                  {partyRoom.description.map((p) => (
+                    <p key={p.slice(0, 40)}>{p}</p>
+                  ))}
+                </div>
+              </div>
             )}
 
             {(partyRoom.capacity || partyRoom.rate || partyRoom.facilities.length > 0 || partyRoom.overnightStay) && (

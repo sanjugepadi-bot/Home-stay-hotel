@@ -6,7 +6,7 @@
  * the card hides each field until it is filled in, and shows a "details coming soon" notice until then.
  *
  * STILL NEEDED FROM THE OWNER:
- *  • a short description of the Party Room
+ *  • (done) description, capacity, facilities, sleeping arrangements
  *  • capacity (number of guests)          • facilities / what is included
  *  • rate / how it is charged             • whether it can be booked for overnight stays
  *  • real photographs (>= 1600 px wide, no people / phone numbers / app overlays)
@@ -21,16 +21,22 @@ export type PartyRoomPhoto = { id: string; src: StaticImageData; caption: string
 
 export const partyRoom = {
   name: "The Party Room",
-  /** Owner to provide. */
-  description: "",
-  /** Owner to provide, e.g. "Up to 30 guests". */
-  capacity: "",
+  /** SEO heading shown above the description (owner-supplied wording). */
+  descriptionTitle: "Spacious Party Room in Dibrugarh for Celebrations & Private Events",
+  /** Owner-supplied description, one paragraph per entry (shown exactly as written). */
+  description: [
+    "Enjoy unforgettable celebrations at the spacious Party Room at Homestay by the Tea Garden, Dibrugarh, featuring beautiful views of the tea gardens. Designed for hosting up to 20 guests, it is an ideal venue for birthday parties, anniversaries, engagement celebrations, bachelor parties and hen parties.",
+    "The Party Room offers a lively atmosphere with a sound system, psychedelic lighting, a kitchen and a bar counter. It also provides sleeping arrangements for up to 6 guests, with convertible sofa beds, making it suitable for both private celebrations and comfortable overnight stays.",
+    "Whether you're planning an intimate gathering or a special occasion with friends and family, our Party Room in Dibrugarh offers a spacious and memorable setting.",
+  ] as string[],
+  /** Owner-confirmed capacity. */
+  capacity: "Up to 20 guests",
   /** Owner to provide, e.g. "₹15,000 per event". */
   rate: "",
-  /** Owner to provide: list of confirmed facilities. */
-  facilities: [] as string[],
-  /** Set true ONLY if the owner confirms it is available for overnight stays. */
-  overnightStay: false,
+  /** Owner-confirmed facilities (rate is still to be provided). */
+  facilities: ["Sound system", "Psychedelic lighting", "Kitchen", "Bar counter", "Sleeps up to 6 guests", "Convertible sofa beds"] as string[],
+  /** Owner-confirmed: sleeping arrangements for up to 6 guests, so overnight stays are possible. */
+  overnightStay: true,
   /** The owner's own photographs of the Party Room (first = main photo). Add more entries as they are supplied. */
   photos: [
     {

@@ -20,7 +20,7 @@ function systemPrompt() {
 
 Verified facts about the homestay (the ONLY facts you may state about it):
 ${roomsList}
-- The homestay has ${TOTAL_ROOMS} rooms in total: the ${rooms.length} individually themed guest rooms above plus a separate Party Room (not a guest bedroom) — no details about the Party Room (capacity, rates, facilities, photos) are available.
+- The homestay has ${TOTAL_ROOMS} rooms in total: the ${rooms.length} individually themed guest rooms above plus a separate Party Room (not a guest bedroom). Party Room facts (owner-confirmed): hosts up to 20 guests for celebrations such as birthday parties, anniversaries, engagement celebrations, bachelor and hen parties; has a sound system, psychedelic lighting, a kitchen and a bar counter; has sleeping arrangements for up to 6 guests with convertible sofa beds, and views of the tea gardens. Its rate is not available — suggest asking the host.
 Contact: ${site.phones.join(" / ")}.
 
 Rules:
